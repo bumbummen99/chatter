@@ -17,7 +17,7 @@ Quick Note: If this is a new project, make sure to install the default user auth
 1. Include the package in your project
 
     ```
-    composer require "devdojo/chatter=0.2.*"
+    composer require skyraptor/chatter
     ```
 
 2. Add the service provider to your `config/app.php` providers array:
