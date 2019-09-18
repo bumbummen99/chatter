@@ -11,7 +11,8 @@ tinymce.init({
 	statusbar: false,
 	height : '220',
 	content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
-	template_popup_height: 380,
+    template_popup_height: 380,
+    paste_as_text: true,
 	setup: function (editor) {
         editor.on('init', function(args) {
         	// The tinymce editor is ready
@@ -50,6 +51,7 @@ function initializeNewTinyMCE(id){
         statusbar: false,
         height : '300',
         content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
-        template_popup_height: 380
+        template_popup_height: 380,
+        paste_as_text: true,
     });
 }

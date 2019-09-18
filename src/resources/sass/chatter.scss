@@ -1,5 +1,5 @@
-@border-radius:30px;
-@main-color:#0098cb;
+$border-radius:30px;
+$main-color:#0098cb;
 
 .navbar{
 	margin-bottom:0px;
@@ -91,7 +91,7 @@ body{
 
 	#new_discussion{
 		display:none;
-		border: 2px solid @main-color;
+		border: 2px solid $main-color;
 		border-bottom:0px;
 	    position: fixed;
 	    bottom: 0px;
@@ -139,7 +139,7 @@ body{
 	    /********** COLOR PICKER STYLE OVERRIDES **********/
 
 		.sp-preview-inner, .sp-alpha-inner, .sp-thumb-inner{
-		    border-radius: @border-radius;
+		    border-radius: $border-radius;
 		    height: 26px;
 		    width: 26px;
 		}
@@ -148,11 +148,11 @@ body{
 			width:28px;
 			height:28px;
 			border-color:#7089A9;
-			border-radius:@border-radius;
+			border-radius:$border-radius;
 		}
 
 		.sp-replacer{
-			border-radius:@border-radius;
+			border-radius:$border-radius;
 			border: solid 2px #f1f5f9;
     		background: none;
 		}
@@ -244,7 +244,7 @@ body{
 			top: 2px;
 		}
 		border:0px;
-		border-radius:@border-radius;
+		border-radius:$border-radius;
 		&:hover, &:visited, &:active{
 			border:0px;
 			outline:none;
@@ -254,7 +254,7 @@ body{
 	.left-column{
 		>a.btn{
 			margin-bottom:15px;
-			border-radius:@border-radius;
+			border-radius:$border-radius;
 		}
 		.btn{
 			width:100%;
@@ -399,7 +399,7 @@ body{
     					margin-top:5px;
     					.chatter_cat{
 							background:#ccc;
-							border-radius:@border-radius;
+							border-radius:$border-radius;
 							font-weight:bold;
 							font-size:10px;
 							padding:3px 7px;
@@ -789,7 +789,7 @@ body{
 	    }
 	}
 	.chatter_loader.dark {
-	    color: @main-color;
+	    color: $main-color;
 	}
 	.chatter_loader > div {
 	    display: inline-block;
@@ -966,10 +966,10 @@ body{
 }
 
 .mce-window-head{
-	background:@main-color !important;
+	background:$main-color !important;
 	border-top-left-radius:3px;
 	border-top-right-radius:3px;
-	border:1px solid @main-color;
+	border:1px solid $main-color;
 }
 
 .mce-foot{
@@ -1068,9 +1068,9 @@ div.mce-edit-area{
 
 /********** FONTS USED FOR CHATTER **********/
 
-@charset "UTF-8";
+$charset "UTF-8";
 
-@font-face {
+$font-face {
   font-family: "chatter";
   src:url("../fonts/chatter.eot");
   src:url("../fonts/chatter.eot?#iefix") format("embedded-opentype"),
@@ -1206,8 +1206,8 @@ div.mce-edit-area{
 		  right: 0;
 		  bottom: 0;
 		  background-color: #ccc;
-		  -webkit-transition: .4s;
-		  transition: .4s;
+		  -webkit-transition: 4s;
+		  transition: 4s;
 		}
 
 		.slider:before {
@@ -1218,8 +1218,8 @@ div.mce-edit-area{
 		  left: 6px;
 		  top: 4px;
 		  background-color: white;
-		  -webkit-transition: .4s;
-		  transition: .4s;
+		  -webkit-transition: 4s;
+		  transition: 4s;
 		}
 
 		input:checked ~ .slider {
@@ -1278,7 +1278,6 @@ div.mce-edit-area{
 }
 
 /********** End Toggle Switch CSS **********/
-
 #pagination{
 	font-size:18px;
 	.pagination>.active>span{
