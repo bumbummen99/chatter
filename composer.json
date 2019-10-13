@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "mews/purifier": "~3.1.1"
+        "mews/purifier": "~3.1.1",
+        "laravel/helpers": "^1.1"
     },
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*|6.0.*",
