@@ -1,14 +1,18 @@
 {
     "name": "skyraptor/chatter",
-    "description": "A simple forum package for your laravel app",
+    "description": "A simple forum package for Laravel.",
     "authors": [
         {
             "name": "Tony Lea",
             "email": "tony@devdojo.com"
+        },
+        {
+            "name": "Patrick Henninger",
+            "email": "privat@skyraptor.eu"
         }
     ],
     "require": {
-        "luketowers/purifier": "~3.0.6"
+        "mews/purifier": "~3.1.1"
     },
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*|6.0.*",
