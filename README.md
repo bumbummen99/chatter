@@ -18,14 +18,6 @@ Quick Note: If this is a new project, make sure to install the default user auth
     composer require skyraptor/chatter
     ```
 
-2. Add the service provider to your `config/app.php` providers array:
-
-   **If you're installing on Laravel 5.5+ skip this step**
-
-    ```
-    DevDojo\Chatter\ChatterServiceProvider::class,
-    ```
-
 3. Publish the Vendor Assets files by running:
 
     ```
@@ -71,7 +63,7 @@ Now, visit your site.com/forums and you should see your new forum in front of yo
 Make sure that your composer.json file is requiring the latest version of chatter:
 
 ```
-"devdojo/chatter": "0.2.*"
+"skyraptor/chatter": "0.2.*"
 ```
 
 Then you'll run:
@@ -95,38 +87,6 @@ php artisan migrate
 ```
 
 And you'll be up-to-date with the latest version :)
-
-### Markdown editor
-
-If you are going to make use of the markdown editor instead of tinymce you will need to change that in your config/chatter.php:
-
-```
-'editor' => 'simplemde',
-```
-
-In order to properly display the posts you will need to include the  `graham-campbell/markdown` library for Laravel:
-
-```
-composer require graham-campbell/markdown
-```
-
-### Trumbowyg editor
-
-If you are going to use Trumbowyg as your editor of choice you will need to change that in your config/chatter.php:
-
-```
-'editor' => 'trumbowyg',
-```
-
-Trumbowyg requires jQuery >= 1.8 to be included.
-
-### VIDEOS
-
-[Introduction and Installation of Chatter](https://devdojo.com/episode/create-a-laravel-forum)
-
-### Configuration
-
-When you published the vendor assets you added a new file inside of your `config` folder which is called `config/chatter.php`. This file contains a bunch of configuration you can use to configure your forums
 
 ### Customization
 
