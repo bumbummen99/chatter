@@ -13,7 +13,7 @@
 			}
 		</style>
 	@endif
-@stop
+@endsection
 
 @section('content')
 
@@ -255,4 +255,4 @@
 
 	});
 </script>
-@stop
+@endsection

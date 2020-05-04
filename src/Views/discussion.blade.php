@@ -293,7 +293,7 @@
 @endif
 <input type="hidden" id="current_path" value="{{ Request::path() }}">
 
-@stop
+@endsection
 
 @section(Config::get('chatter.yields.footer'))
 
@@ -467,4 +467,4 @@
 
 <script src="{{ url('/vendor/devdojo/chatter/assets/js/chatter.js') }}"></script>
 
-@stop
+@endsection
