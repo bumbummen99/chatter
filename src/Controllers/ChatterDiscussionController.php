@@ -22,16 +22,6 @@ class ChatterDiscussionController extends Controller
      */
     public function index(Request $request)
     {
-        /*$total = 10;
-        $offset = 0;
-        if ($request->total) {
-            $total = $request->total;
-        }
-        if ($request->offset) {
-            $offset = $request->offset;
-        }
-        $discussions = Models::discussion()->with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();*/
-
         // Return an empty array to avoid exposing user data to the public.
         // This index function is not being used anywhere.
         return response()->json([]);
@@ -223,6 +213,7 @@ class ChatterDiscussionController extends Controller
     }
 
     /**
+     * TODO
      * Show the form for editing the specified resource.
      *
      * @param int $id
@@ -235,6 +226,7 @@ class ChatterDiscussionController extends Controller
     }
 
     /**
+     * TODO
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -248,6 +240,7 @@ class ChatterDiscussionController extends Controller
     }
 
     /**
+     * TODO
      * Remove the specified resource from storage.
      *
      * @param int $id

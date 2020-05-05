@@ -1,18 +1,18 @@
-@extends(Config::get('chatter.master_file_extend'))
+@extends(config('chatter.master_file_extend'))
 
 @section('content')
 <section class="discussion-header">
 	<div class="container">
 		<div class="row">
 			<div class="col-12 d-none d-md-flex flex-column flex-md-row align-items-center pt-3 pb-3">
-				<a class="btn btn-secondary p-2 rounded-circle mr-3 lh-normal" href="/{{ Config::get('chatter.routes.home') }}"><i class="fas fa-chevron-left d-flex align-items-center"></i></a>
+				<a class="btn btn-secondary p-2 rounded-circle mr-3 lh-normal" href="/{{ config('chatter.routes.home') }}"><i class="fas fa-chevron-left d-flex align-items-center"></i></a>
 				<h1 class="mb-0 flex-grow-1 text-primary">{{ $discussion->title }}</h1>
-				<span class="text-softwhite"> @lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $discussion->category->slug }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
+				<span class="text-softwhite">@lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="/{{ config('chatter.routes.home') }}/{{ config('chatter.routes.category') }}/{{ $discussion->category->slug }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
 			</div>
 			<div class="col-12 d-flex d-md-none flex-column flex-md-row align-items-center pt-3 pb-3">
 				<div class="d-flex d-flex-row align-items-center">
-					<a class="btn btn-secondary p-2 rounded-circle mr-3 lh-normal" href="/{{ Config::get('chatter.routes.home') }}"><i class="fas fa-chevron-left d-flex align-items-center"></i></a>
-					<span class="text-softwhite"> @lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $discussion->category->slug }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
+					<a class="btn btn-secondary p-2 rounded-circle mr-3 lh-normal" href="/{{ config('chatter.routes.home') }}"><i class="fas fa-chevron-left d-flex align-items-center"></i></a>
+					<span class="text-softwhite">@lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="/{{ config('chatter.routes.home') }}/{{ config('chatter.routes.category') }}/{{ $discussion->category->slug }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
 				</div>
 				<h1 class="mb-0 flex-grow-1 text-primary">{{ $discussion->title }}</h1>
 			</div>
@@ -27,7 +27,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
+					<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ config('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
 					{{ Session::get('chatter_alert') }}
 				</div>
 			</div>
@@ -69,17 +69,17 @@
 				<!-- Left -->
 				<div class="left col-12 col-sm-2 py-3">
 					<div class="avatar">
-						@if(Config::get('chatter.user.avatar_image_database_field'))
+						@if(config('chatter.user.avatar_image_database_field'))
 							<!-- If the user db field contains http:// or https:// we don't need to use the relative path to the image assets -->
-							@if( (substr($post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field')), 0, 7) == 'http://') || (substr($post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field')), 0, 8) == 'https://') )
-							<img src="{{ $post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field'))  }}" class="img-fluid d-block mx-auto rounded">
+							@if( (substr($post->user->getAttribute(config('chatter.user.avatar_image_database_field')), 0, 7) == 'http://') || (substr($post->user->getAttribute(config('chatter.user.avatar_image_database_field')), 0, 8) == 'https://') )
+							<img src="{{ $post->user->getAttribute(config('chatter.user.avatar_image_database_field'))  }}" class="img-fluid d-block mx-auto rounded">
 							@else
-							<img src="{{ Config::get('chatter.user.relative_url_to_image_assets') . $post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field'))  }}" class="img-fluid d-block mx-auto rounded">
+							<img src="{{ config('chatter.user.relative_url_to_image_assets') . $post->user->getAttribute(config('chatter.user.avatar_image_database_field'))  }}" class="img-fluid d-block mx-auto rounded">
 							@endif
 						@else
 							<p class="text-center lead">
-								<span class="p-2 chatter_avatar_circle" style="background-color:#{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->getAttribute(Config::get('chatter.user.database_field_with_user_name'))) }}">
-									{{ strtoupper(substr($post->user->getAttribute(Config::get('chatter.user.database_field_with_user_name')), 0, 1)) }}
+								<span class="p-2 chatter_avatar_circle" style="background-color:#{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->getAttribute(config('chatter.user.database_field_with_user_name'))) }}">
+									{{ strtoupper(substr($post->user->getAttribute(config('chatter.user.database_field_with_user_name')), 0, 1)) }}
 								</span>
 							</p>
 						@endif
@@ -91,7 +91,7 @@
 					<div class="d-flex flex-column flex-grow-1 h-100">
 						<!-- Post Details -->
 						<div class="details text-center text-sm-left text-softwhite mb-2">
-							<a class="lead" href="{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::userLink($post->user) }}">{{ ucfirst($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span>
+							<a class="lead" href="{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::userLink($post->user) }}">{{ ucfirst($post->user->{config('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span>
 						</div>
 
 						<!-- Content -->
@@ -117,13 +117,13 @@
 									<i class="fas fa-trash-alt"></i> @lang('chatter::messages.words.delete')
 								</button>
 
-								<form class="post-edit-form d-none" action="/{{ Config::get('chatter.routes.home') . '/posts/' . $post->id}}" method="POST">
+								<form class="post-edit-form d-none" action="/{{ config('chatter.routes.home') . '/posts/' . $post->id}}" method="POST">
 									@method('PATCH')
 									@csrf
 									<input type="hidden" name="body">
 								</form>
 
-								<form class="post-delete-form d-none" action="/{{ Config::get('chatter.routes.home') . '/posts/' . $post->id }}" method="POST">
+								<form class="post-delete-form d-none" action="/{{ config('chatter.routes.home') . '/posts/' . $post->id }}" method="POST">
 									@method('DELETE')
 									@csrf
 								</form>
@@ -189,7 +189,7 @@
 							<div></div>
 						</div>
 
-						<form id="chatter_form_editor" action="/{{ Config::get('chatter.routes.home') }}/posts" method="POST">
+						<form id="chatter_form_editor" action="/{{ config('chatter.routes.home') }}/posts" method="POST">
 
 							<!-- BODY -->
 							<div id="editor">
@@ -221,15 +221,15 @@
 	</div>
 </section>
 
-<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
-<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+<input type="hidden" id="chatter_tinymce_toolbar" value="{{ config('chatter.tinymce.toolbar') }}">
+<input type="hidden" id="chatter_tinymce_plugins" value="{{ config('chatter.tinymce.plugins') }}">
 <input type="hidden" id="current_path" value="{{ Request::path() }}">
 @endsection
 
-@section(Config::get('chatter.yields.header'))
+@section(config('chatter.yields.header'))
 <link href="{{ url('/vendor/skyraptor/chatter/assets/css/chatter.css') }}" rel="stylesheet">
 @endsection
 
-@section(Config::get('chatter.yields.footer'))
+@section(config('chatter.yields.footer'))
 <script src="{{ url('/vendor/skyraptor/chatter/assets/js/chatter-discussion.js') }}"></script>
 @endsection

@@ -13,7 +13,7 @@ return [
     */
 
     'routes' => [
-        'home'       => 'forums',
+        'home'       => 'forums',       // Base URI prefix
         'discussion' => 'discussion',
         'category'   => 'category',
         'post'       => 'posts',

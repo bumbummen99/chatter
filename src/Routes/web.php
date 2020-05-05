@@ -46,22 +46,6 @@ Route::group([
     ]);
 
     /*
-     * Auth routes.
-     */
-
-    // Login view.
-    Route::get('login', [
-        'as'   => 'login',
-        'uses' => 'ChatterController@login',
-    ]);
-
-    // Register view.
-    Route::get('register', [
-        'as'   => 'register',
-        'uses' => 'ChatterController@register',
-    ]);
-
-    /*
      * Discussion routes.
      */
     Route::group([
@@ -117,26 +101,27 @@ Route::group([
                 'middleware' => $middleware('discussion.show'),
             ]);
 
-            // Edit discussion view.
-            Route::get('edit', [
-                'as'         => 'edit',
-                'uses'       => 'ChatterDiscussionController@edit',
-                'middleware' => $authMiddleware('discussion.edit'),
-            ]);
-
-            // Update discussion action.
-            Route::match(['PUT', 'PATCH'], '/', [
-                'as'         => 'update',
-                'uses'       => 'ChatterDiscussionController@update',
-                'middleware' => $authMiddleware('discussion.update'),
-            ]);
-
-            // Destroy discussion action.
-            Route::delete('/', [
-                'as'         => 'destroy',
-                'uses'       => 'ChatterDiscussionController@destroy',
-                'middleware' => $authMiddleware('discussion.destroy'),
-            ]);
+            /* TODO */
+            //// Edit discussion view.
+            //Route::get('edit', [
+            //    'as'         => 'edit',
+            //    'uses'       => 'ChatterDiscussionController@edit',
+            //    'middleware' => $authMiddleware('discussion.edit'),
+            //]);
+            //
+            //// Update discussion action.
+            //Route::match(['PUT', 'PATCH'], '/', [
+            //    'as'         => 'update',
+            //    'uses'       => 'ChatterDiscussionController@update',
+            //    'middleware' => $authMiddleware('discussion.update'),
+            //]);
+            //
+            //// Destroy discussion action.
+            //Route::delete('/', [
+            //    'as'         => 'destroy',
+            //    'uses'       => 'ChatterDiscussionController@destroy',
+            //    'middleware' => $authMiddleware('discussion.destroy'),
+            //]);
         });
     });
 
@@ -175,20 +160,6 @@ Route::group([
         Route::group([
             'prefix' => '{post}',
         ], function () use ($middleware, $authMiddleware) {
-
-            // Single post view.
-            Route::get('/', [
-                'as'         => 'show',
-                'uses'       => 'ChatterPostController@show',
-                'middleware' => $middleware('post.show'),
-            ]);
-
-            // Edit post view.
-            Route::get('edit', [
-                'as'         => 'edit',
-                'uses'       => 'ChatterPostController@edit',
-                'middleware' => $authMiddleware('post.edit'),
-            ]);
 
             // Update post action.
             Route::match(['PUT', 'PATCH'], '/', [

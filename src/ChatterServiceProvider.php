@@ -35,7 +35,7 @@ class ChatterServiceProvider extends ServiceProvider
         ], 'chatter_lang');
 
         // include the routes file
-        include __DIR__.'/Routes/web.php';
+        include __DIR__ . '/Routes/web.php';
     }
 
     /**
@@ -53,9 +53,8 @@ class ChatterServiceProvider extends ServiceProvider
         /*
          * Create aliases for the dependency.
          */
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Purifier', 'Mews\Purifier\Facades\Purifier');
+        $this->app->alias('Mews\Purifier\Facades\Purifier', 'Purifier');
 
-        $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
+        $this->loadViewsFrom(__DIR__ . '/Views', 'chatter');
     }
 }

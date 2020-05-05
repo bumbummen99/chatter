@@ -2,10 +2,11 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use SkyRaptor\Chatter\Helpers\ChatterHelper as Helper;
 use SkyRaptor\Chatter\Models\Models;
-use Illuminate\Routing\Controller as Controller;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
 
 class ChatterController extends Controller
 {
@@ -36,7 +37,7 @@ class ChatterController extends Controller
         
         if ($chatter_editor == 'simplemde') {
             // Dynamically register markdown service provider
-            \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
+            App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
         
         return view('chatter::home', compact('discussions', 'categories', 'categoriesMenu', 'chatter_editor', 'current_category_id'));
@@ -45,14 +46,18 @@ class ChatterController extends Controller
     public function login()
     {
         if (!Auth::check()) {
-            return \Redirect::to('/'.config('chatter.routes.login').'?redirect='.config('chatter.routes.home'))->with('flash_message', 'Please create an account before posting.');
+            return redirect()->route(config('chatter.routes.login'), [
+                'redirect' => config('chatter.routes.home'),
+            ])->with('flash_message', 'Please create an account before posting.');
         }
     }
     
     public function register()
     {
         if (!Auth::check()) {
-            return \Redirect::to('/'.config('chatter.routes.register').'?redirect='.config('chatter.routes.home'))->with('flash_message', 'Please register for an account.');
+            return redirect()->route(config('chatter.routes.register'), [
+                'redirect' => config('chatter.routes.home')
+            ])->with('flash_message', 'Please register for an account.');
         }
     }
 }
