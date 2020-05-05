@@ -1,5 +1,12 @@
-/public/assets/node_modules
-.DS_Store
-composer.lock
-/vendor/
+# IDE
 /.idea/
+
+# Package Managers
+/vendor
+composer.lock
+node_modules
+/node_modules
+package-lock.json
+
+# OS
+.DS_Store
