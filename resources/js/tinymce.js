@@ -33,7 +33,7 @@ const options = {
 	toolbar: chatter_tinymce_toolbar,
 	menubar: false,
 	statusbar: false,
-	content_css : '/vendor/devdojo/chatter/assets/css/tinymce.css',
+	content_css : '/vendor/skyraptor/chatter/assets/css/tinymce.css',
     template_popup_height: 380,
     paste_as_text: true,
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace DevDojo\Chatter\Controllers;
+namespace SkyRaptor\Chatter\Controllers;
 
 use Auth;
-use DevDojo\Chatter\Helpers\ChatterHelper as Helper;
-use DevDojo\Chatter\Models\Models;
+use SkyRaptor\Chatter\Helpers\ChatterHelper as Helper;
+use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Routing\Controller as Controller;
 
 class ChatterController extends Controller

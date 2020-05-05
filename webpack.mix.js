@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('src/resources/js/chatter-discussion.js', 'public/assets/js')
-.js('src/resources/js/chatter-home.js', 'public/assets/js')
-.sass('src/resources/sass/chatter.scss', 'public/assets/css')
-.sass('src/resources/sass/tinymce.scss', 'public/assets/css');
+mix.js('./resources/js/chatter-discussion.js', 'public/assets/js')
+.js('./resources/js/chatter-home.js', 'public/assets/js')
+.sass('./resources/sass/chatter.scss', 'public/assets/css')
+.sass('./resources/sass/tinymce.scss', 'public/assets/css');

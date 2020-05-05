@@ -21,7 +21,7 @@ Quick Note: If this is a new project, make sure to install the default user auth
 3. Publish the Vendor Assets files by running:
 
     ```
-    php artisan vendor:publish --provider="DevDojo\Chatter\ChatterServiceProvider"
+    php artisan vendor:publish --provider="SkyRaptor\Chatter\ChatterServiceProvider"
     ```
 
 4. Now that we have published a few new files to our application we need to reload them with the following command:
@@ -169,7 +169,7 @@ For example, to register a listener for the "before new discussion" event, add t
 
 ```php
 protected $listen = [
-    'DevDojo\Chatter\Events\ChatterBeforeNewDiscussion' => [
+    'SkyRaptor\Chatter\Events\ChatterBeforeNewDiscussion' => [
         'App\Listeners\HandleNewDiscussion',
     ],
 ];

@@ -39,14 +39,14 @@ before_script:
   - cd chatter-app
 
   # Include Chatter Package & Markdown package
-  - composer require devdojo/chatter dev-master
+  - composer require skyraptor/chatter dev-master
   - composer require graham-campbell/markdown
 
   # Remove the current version
-  - rm -rf vendor/devdojo/chatter
+  - rm -rf vendor/skyraptor/chatter
 
   # Move this build into the chatter folder
-  - mv /home/travis/build/thedevdojo/chatter /home/travis/build/thedevdojo/chatter-app/vendor/devdojo/chatter
+  - mv /home/travis/build/thedevdojo/chatter /home/travis/build/thedevdojo/chatter-app/vendor/skyraptor/chatter
 
   # Move up one folder and rename chatter-app to chatter
   - cd ../
@@ -62,7 +62,7 @@ before_script:
   - mv environment .env
 
   # Add the service providers
-  - sed 's/App\\Providers\\RouteServiceProvider\:\:class,/App\\Providers\\RouteServiceProvider\:\:class, DevDojo\\Chatter\\ChatterServiceProvider\:\:class,/g' config/app.php > config/app-temp.php
+  - sed 's/App\\Providers\\RouteServiceProvider\:\:class,/App\\Providers\\RouteServiceProvider\:\:class, SkyRaptor\\Chatter\\ChatterServiceProvider\:\:class,/g' config/app.php > config/app-temp.php
   - rm config/app.php
   - mv config/app-temp.php config/app.php
     
@@ -78,7 +78,7 @@ before_script:
 
   # Remove the default phpunit.xml and replace it with chatter phpunit.xml
   - rm phpunit.xml
-  - cp vendor/devdojo/chatter/phpunit.xml phpunit.xml
+  - cp vendor/skyraptor/chatter/phpunit.xml phpunit.xml
   
 
 script:

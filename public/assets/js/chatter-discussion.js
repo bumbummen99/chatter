@@ -69971,16 +69971,16 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/resources/js/chatter-discussion.js":
-/*!************************************************!*\
-  !*** ./src/resources/js/chatter-discussion.js ***!
-  \************************************************/
+/***/ "./resources/js/chatter-discussion.js":
+/*!********************************************!*\
+  !*** ./resources/js/chatter-discussion.js ***!
+  \********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tinymce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tinymce */ "./src/resources/js/tinymce.js");
+/* harmony import */ var _tinymce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tinymce */ "./resources/js/tinymce.js");
 function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -70087,10 +70087,10 @@ $('document').ready(function () {
 
 /***/ }),
 
-/***/ "./src/resources/js/tinymce.js":
-/*!*************************************!*\
-  !*** ./src/resources/js/tinymce.js ***!
-  \*************************************/
+/***/ "./resources/js/tinymce.js":
+/*!*********************************!*\
+  !*** ./resources/js/tinymce.js ***!
+  \*********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -70142,7 +70142,7 @@ var options = {
   toolbar: chatter_tinymce_toolbar,
   menubar: false,
   statusbar: false,
-  content_css: '/vendor/devdojo/chatter/assets/css/tinymce.css',
+  content_css: '/vendor/skyraptor/chatter/assets/css/tinymce.css',
   template_popup_height: 380,
   paste_as_text: true
 }; // Initiate the tinymce editor on any textarea with a class of richText
@@ -70188,10 +70188,10 @@ function initializeNewTinyMCE(id) {
 
 /***/ }),
 
-/***/ "./src/resources/sass/chatter.scss":
-/*!*****************************************!*\
-  !*** ./src/resources/sass/chatter.scss ***!
-  \*****************************************/
+/***/ "./resources/sass/chatter.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/chatter.scss ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -70199,10 +70199,10 @@ function initializeNewTinyMCE(id) {
 
 /***/ }),
 
-/***/ "./src/resources/sass/tinymce.scss":
-/*!*****************************************!*\
-  !*** ./src/resources/sass/tinymce.scss ***!
-  \*****************************************/
+/***/ "./resources/sass/tinymce.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/tinymce.scss ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -70211,15 +70211,15 @@ function initializeNewTinyMCE(id) {
 /***/ }),
 
 /***/ 0:
-/*!**************************************************************************************************************************!*\
-  !*** multi ./src/resources/js/chatter-discussion.js ./src/resources/sass/chatter.scss ./src/resources/sass/tinymce.scss ***!
-  \**************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** multi ./resources/js/chatter-discussion.js ./resources/sass/chatter.scss ./resources/sass/tinymce.scss ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/patrick/private/workspace/chatter/src/resources/js/chatter-discussion.js */"./src/resources/js/chatter-discussion.js");
-__webpack_require__(/*! /home/patrick/private/workspace/chatter/src/resources/sass/chatter.scss */"./src/resources/sass/chatter.scss");
-module.exports = __webpack_require__(/*! /home/patrick/private/workspace/chatter/src/resources/sass/tinymce.scss */"./src/resources/sass/tinymce.scss");
+__webpack_require__(/*! /home/patrick/private/workspace/chatter/resources/js/chatter-discussion.js */"./resources/js/chatter-discussion.js");
+__webpack_require__(/*! /home/patrick/private/workspace/chatter/resources/sass/chatter.scss */"./resources/sass/chatter.scss");
+module.exports = __webpack_require__(/*! /home/patrick/private/workspace/chatter/resources/sass/tinymce.scss */"./resources/sass/tinymce.scss");
 
 
 /***/ })

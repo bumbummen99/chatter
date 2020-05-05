@@ -1,6 +1,6 @@
 <?php
 
-namespace DevDojo\Chatter\Events;
+namespace SkyRaptor\Chatter\Events;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;

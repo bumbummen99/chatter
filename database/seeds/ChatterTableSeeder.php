@@ -196,9 +196,9 @@ class ChatterTableSeeder extends Seeder
                         'id'                    => 1,
                         'chatter_discussion_id' => 3,
                         'user_id'               => 1,
-                        'body'                  => '<p>My name is Tony and I\'m a developer at <a href="https://devdojo.com" target="_blank">https://devdojo.com</a> and I also work with an awesome company in PB called The Control Group: <a href="http://www.thecontrolgroup.com" target="_blank">http://www.thecontrolgroup.com</a></p>
+                        'body'                  => '<p>My name is Tony and I\'m a developer at <a href="https://skyraptor.com" target="_blank">https://skyraptor.com</a> and I also work with an awesome company in PB called The Control Group: <a href="http://www.thecontrolgroup.com" target="_blank">http://www.thecontrolgroup.com</a></p>
         <p>You can check me out on twitter at <a href="http://www.twitter.com/tnylea" target="_blank">http://www.twitter.com/tnylea</a></p>
-        <p>or you can subscribe to me on YouTube at <a href="http://www.youtube.com/devdojo" target="_blank">http://www.youtube.com/devdojo</a></p>',
+        <p>or you can subscribe to me on YouTube at <a href="http://www.youtube.com/skyraptor" target="_blank">http://www.youtube.com/skyraptor</a></p>',
                         'created_at' => '2016-08-18 14:27:56',
                         'updated_at' => '2016-08-18 14:27:56',
                     ],
@@ -241,7 +241,7 @@ class ChatterTableSeeder extends Seeder
         <li><span style="line-height: 1.6;">add a numbered list</span></li>
         </ol>
         <p style="padding-left: 30px;"><span style="line-height: 1.6;">We can choose to indent our text</span></p>
-        <p><span style="line-height: 1.6;">Post links: <a href="https://devdojo.com" target="_blank">https://devdojo.com</a></span></p>
+        <p><span style="line-height: 1.6;">Post links: <a href="https://skyraptor.com" target="_blank">https://skyraptor.com</a></span></p>
         <p><span style="line-height: 1.6;">and add images:</span></p>
         <p><span style="line-height: 1.6;"><img src="https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif" alt="" width="300" height="300" /></span></p>',
                 'created_at' => '2016-08-18 14:46:38',

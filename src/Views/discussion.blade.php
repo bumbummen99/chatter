@@ -78,7 +78,7 @@
 							@endif
 						@else
 							<p class="text-center lead">
-								<span class="p-2 chatter_avatar_circle" style="background-color:#{{ \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->getAttribute(Config::get('chatter.user.database_field_with_user_name'))) }}">
+								<span class="p-2 chatter_avatar_circle" style="background-color:#{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->getAttribute(Config::get('chatter.user.database_field_with_user_name'))) }}">
 									{{ strtoupper(substr($post->user->getAttribute(Config::get('chatter.user.database_field_with_user_name')), 0, 1)) }}
 								</span>
 							</p>
@@ -91,7 +91,7 @@
 					<div class="d-flex flex-column flex-grow-1 h-100">
 						<!-- Post Details -->
 						<div class="details text-center text-sm-left text-softwhite mb-2">
-							<a class="lead" href="{{ \DevDojo\Chatter\Helpers\ChatterHelper::userLink($post->user) }}">{{ ucfirst($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span>
+							<a class="lead" href="{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::userLink($post->user) }}">{{ ucfirst($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span>
 						</div>
 
 						<!-- Content -->
@@ -227,9 +227,9 @@
 @endsection
 
 @section(Config::get('chatter.yields.header'))
-<link href="{{ url('/vendor/devdojo/chatter/assets/css/chatter.css') }}" rel="stylesheet">
+<link href="{{ url('/vendor/skyraptor/chatter/assets/css/chatter.css') }}" rel="stylesheet">
 @endsection
 
 @section(Config::get('chatter.yields.footer'))
-<script src="{{ url('/vendor/devdojo/chatter/assets/js/chatter-discussion.js') }}"></script>
+<script src="{{ url('/vendor/skyraptor/chatter/assets/js/chatter-discussion.js') }}"></script>
 @endsection

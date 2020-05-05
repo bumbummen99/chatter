@@ -76,7 +76,7 @@
 								@endif
 							@else
 								<p class="text-center lead">
-									<span class="p-2 chatter_avatar_circle" style="background-color:#{{ \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->getAttribute(Config::get('chatter.user.database_field_with_user_name'))) }}">
+									<span class="p-2 chatter_avatar_circle" style="background-color:#{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->getAttribute(Config::get('chatter.user.database_field_with_user_name'))) }}">
 										{{ strtoupper(substr($discussion->user->getAttribute(Config::get('chatter.user.database_field_with_user_name')), 0, 1)) }}
 									</span>
 								</p>
@@ -98,7 +98,7 @@
 
 							<!-- Post Details -->
 							<div class="details text-center text-sm-left text-softwhite mb-2">
-								<a href="{{ \DevDojo\Chatter\Helpers\ChatterHelper::userLink($discussion->user) }}">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
+								<a href="{{ \SkyRaptor\Chatter\Helpers\ChatterHelper::userLink($discussion->user) }}">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
 							</div>
 
 							<!-- Content -->
@@ -194,11 +194,11 @@
 @endsection
 
 @section(Config::get('chatter.yields.header'))
-<link href="{{ url('/vendor/devdojo/chatter/assets/css/chatter.css') }}" rel="stylesheet">
+<link href="{{ url('/vendor/SkyRaptor/chatter/assets/css/chatter.css') }}" rel="stylesheet">
 @endsection
 
 @section(Config::get('chatter.yields.footer'))
-<script src="{{ url('/vendor/devdojo/chatter/assets/js/chatter-home.js') }}"></script>
+<script src="{{ url('/vendor/SkyRaptor/chatter/assets/js/chatter-home.js') }}"></script>
 <script>
 	$('document').ready(function(){
 		for (const element of document.querySelectorAll('.cancel-discussion')) {

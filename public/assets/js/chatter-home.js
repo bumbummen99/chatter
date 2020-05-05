@@ -69971,16 +69971,16 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/resources/js/chatter-home.js":
-/*!******************************************!*\
-  !*** ./src/resources/js/chatter-home.js ***!
-  \******************************************/
+/***/ "./resources/js/chatter-home.js":
+/*!**************************************!*\
+  !*** ./resources/js/chatter-home.js ***!
+  \**************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tinymce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tinymce */ "./src/resources/js/tinymce.js");
+/* harmony import */ var _tinymce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tinymce */ "./resources/js/tinymce.js");
 
 /* Only if email notify is enabled */
 
@@ -70004,10 +70004,10 @@ $('#notify_email').change(function () {
 
 /***/ }),
 
-/***/ "./src/resources/js/tinymce.js":
-/*!*************************************!*\
-  !*** ./src/resources/js/tinymce.js ***!
-  \*************************************/
+/***/ "./resources/js/tinymce.js":
+/*!*********************************!*\
+  !*** ./resources/js/tinymce.js ***!
+  \*********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -70059,7 +70059,7 @@ var options = {
   toolbar: chatter_tinymce_toolbar,
   menubar: false,
   statusbar: false,
-  content_css: '/vendor/devdojo/chatter/assets/css/tinymce.css',
+  content_css: '/vendor/skyraptor/chatter/assets/css/tinymce.css',
   template_popup_height: 380,
   paste_as_text: true
 }; // Initiate the tinymce editor on any textarea with a class of richText
@@ -70106,13 +70106,13 @@ function initializeNewTinyMCE(id) {
 /***/ }),
 
 /***/ 1:
-/*!************************************************!*\
-  !*** multi ./src/resources/js/chatter-home.js ***!
-  \************************************************/
+/*!********************************************!*\
+  !*** multi ./resources/js/chatter-home.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/patrick/private/workspace/chatter/src/resources/js/chatter-home.js */"./src/resources/js/chatter-home.js");
+module.exports = __webpack_require__(/*! /home/patrick/private/workspace/chatter/resources/js/chatter-home.js */"./resources/js/chatter-home.js");
 
 
 /***/ })

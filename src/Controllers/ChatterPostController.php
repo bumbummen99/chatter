@@ -1,13 +1,13 @@
 <?php
 
-namespace DevDojo\Chatter\Controllers;
+namespace SkyRaptor\Chatter\Controllers;
 
 use Auth;
 use Carbon\Carbon;
-use DevDojo\Chatter\Events\ChatterAfterNewResponse;
-use DevDojo\Chatter\Events\ChatterBeforeNewResponse;
-use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
-use DevDojo\Chatter\Models\Models;
+use SkyRaptor\Chatter\Events\ChatterAfterNewResponse;
+use SkyRaptor\Chatter\Events\ChatterBeforeNewResponse;
+use SkyRaptor\Chatter\Mail\ChatterDiscussionUpdated;
+use SkyRaptor\Chatter\Models\Models;
 use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;

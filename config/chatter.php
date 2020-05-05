@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'headline_logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
+    'headline_logo' => '/vendor/skyraptor/chatter/assets/images/logo-light.png',
 
     /*
     |--------------------------------------------------------------------------
