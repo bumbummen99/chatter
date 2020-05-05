@@ -1,23 +1,47 @@
 import tinymce from "tinymce/tinymce";
+import 'tinymce/themes/silver';
+
+// Any plugins you want to use has to be imported
+//import 'tinymce/plugins/advlist';
+//import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/image';
+//import 'tinymce/plugins/charmap';
+//import 'tinymce/plugins/print';
+//import 'tinymce/plugins/preview';
+//import 'tinymce/plugins/anchor';
+//import 'tinymce/plugins/searchreplace';
+//import 'tinymce/plugins/visualblocks';
+//import 'tinymce/plugins/code';
+//import 'tinymce/plugins/fullscreen';
+//import 'tinymce/plugins/insertdatetime';
+//import 'tinymce/plugins/media';
+//import 'tinymce/plugins/table';
+import 'tinymce/plugins/paste';
+//import 'tinymce/plugins/help';
+//import 'tinymce/plugins/wordcount';
 
 import "style-loader!tinymce/skins/ui/oxide-dark/skin.min.css";
-import contentStyle from "../sass/tinymce.scss";
 
 var chatter_tinymce_toolbar = $('#chatter_tinymce_toolbar').val();
 var chatter_tinymce_plugins = $('#chatter_tinymce_plugins').val();
 
-// Initiate the tinymce editor on any textarea with a class of richText
-tinymce.init({
-	selector:'textarea.richText',
-	skin: 'lightgray',
+const options = {
+    skin: false,
 	plugins: chatter_tinymce_plugins,
 	toolbar: chatter_tinymce_toolbar,
 	menubar: false,
 	statusbar: false,
-	height : '220',
-	content_css : contentStyle.toString(),
+	content_css : '/vendor/devdojo/chatter/assets/css/tinymce.css',
     template_popup_height: 380,
     paste_as_text: true,
+}
+
+// Initiate the tinymce editor on any textarea with a class of richText
+tinymce.init(Object.assign({
+	selector:'textarea.richText',
+	height : '220',
 	setup: function (editor) {
         editor.on('init', function(args) {
         	// The tinymce editor is ready
@@ -44,19 +68,11 @@ tinymce.init({
         	}
         });
     }
-});
+}, options));
 
-export function initializeNewTinyMCE(id){
-    tinymce.init({
+export default function initializeNewTinyMCE(id){
+    tinymce.init(Object.assign({
         selector:'#'+id,
-        skin: 'chatter',
-        plugins: chatter_tinymce_plugins,
-        toolbar: chatter_tinymce_toolbar,
-        menubar: false,
-        statusbar: false,
         height : '300',
-        content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
-        template_popup_height: 380,
-        paste_as_text: true,
-    });
+    }, options));
 }

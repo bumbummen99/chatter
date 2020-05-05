@@ -1,4 +1,4 @@
-import './tinymce';
+import initializeNewTinyMCE from './tinymce';
 
 $('document').ready(function() {
     /* Get and process all posts on the page */
