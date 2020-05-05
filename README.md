@@ -1,12 +1,12 @@
-<p align="center"><img width="300" src="https://raw.githubusercontent.com/skyraptor/chatter/master/public/assets/images/logo.png"></p>
+<p align="center"><img width="300" src="https://raw.githubusercontent.com/bumbummen99/chatter/master/laravel-forum-logo.svg"></p>
 
 <p align="center">
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/downloads.svg?format=flat" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/skyraptor/skyraptor"><img src="https://poser.pugx.org/skyraptor/chatter/license.svg?format=flat" alt="License"></a>
+<a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/license.svg?format=flat" alt="License"></a>
 </p>
 
-# Laravel Forum Package - Chatter
+# Chatter - A Laravel Forum package
 
 ### Installation
 
