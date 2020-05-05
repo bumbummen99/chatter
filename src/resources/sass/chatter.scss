@@ -2,7 +2,7 @@ $chatter-post-border-color: #1F1F1F !default;
 $chatter-post-background-color: darken($chatter-post-border-color, 5%) !default;
 $chatter-avatar-border-color: darken($chatter-post-border-color, 10%) !default;
 $chatter-border-radius: 5px !default;
-$chatter-main-color: yellow;
+$chatter-main-color: yellow !default;
 
 section.forum {
     .category-nav {
