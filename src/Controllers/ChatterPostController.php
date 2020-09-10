@@ -2,18 +2,18 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
-use Auth;
 use Carbon\Carbon;
 use SkyRaptor\Chatter\Events\ChatterAfterNewResponse;
 use SkyRaptor\Chatter\Events\ChatterBeforeNewResponse;
 use SkyRaptor\Chatter\Mail\ChatterDiscussionUpdated;
 use SkyRaptor\Chatter\Models\Models;
-use Event;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as Controller;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
-use Purifier;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Mews\Purifier\Facades\Purifier;
 
 class ChatterPostController extends Controller
 {

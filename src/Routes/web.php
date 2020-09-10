@@ -4,6 +4,8 @@
  * Helpers.
  */
 
+use Illuminate\Support\Facades\Route;
+
 // Route helper.
 $route = function ($accessor, $default = '') {
     return $this->app->config->get('chatter.routes.'.$accessor, $default);
@@ -101,27 +103,26 @@ Route::group([
                 'middleware' => $middleware('discussion.show'),
             ]);
 
-            /* TODO */
-            //// Edit discussion view.
-            //Route::get('edit', [
-            //    'as'         => 'edit',
-            //    'uses'       => 'ChatterDiscussionController@edit',
-            //    'middleware' => $authMiddleware('discussion.edit'),
-            //]);
-            //
-            //// Update discussion action.
-            //Route::match(['PUT', 'PATCH'], '/', [
-            //    'as'         => 'update',
-            //    'uses'       => 'ChatterDiscussionController@update',
-            //    'middleware' => $authMiddleware('discussion.update'),
-            //]);
-            //
-            //// Destroy discussion action.
-            //Route::delete('/', [
-            //    'as'         => 'destroy',
-            //    'uses'       => 'ChatterDiscussionController@destroy',
-            //    'middleware' => $authMiddleware('discussion.destroy'),
-            //]);
+            // Edit discussion view.
+            Route::get('edit', [
+                'as'         => 'edit',
+                'uses'       => 'ChatterDiscussionController@edit',
+                'middleware' => $authMiddleware('discussion.edit'),
+            ]);
+            
+            // Update discussion action.
+            Route::match(['PUT', 'PATCH'], '/', [
+                'as'         => 'update',
+                'uses'       => 'ChatterDiscussionController@update',
+                'middleware' => $authMiddleware('discussion.update'),
+            ]);
+            
+            // Destroy discussion action.
+            Route::delete('/', [
+                'as'         => 'destroy',
+                'uses'       => 'ChatterDiscussionController@destroy',
+                'middleware' => $authMiddleware('discussion.destroy'),
+            ]);
         });
     });
 

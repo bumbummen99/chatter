@@ -2,15 +2,16 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Carbon\Carbon;
 use SkyRaptor\Chatter\Events\ChatterAfterNewDiscussion;
 use SkyRaptor\Chatter\Events\ChatterBeforeNewDiscussion;
 use SkyRaptor\Chatter\Models\Models;
-use Event;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as Controller;
-use Validator;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ChatterDiscussionController extends Controller
@@ -204,7 +205,7 @@ class ChatterDiscussionController extends Controller
 
         if ($chatter_editor == 'simplemde') {
             // Dynamically register markdown service provider
-            \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
+            App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
         $discussion->increment('views');
