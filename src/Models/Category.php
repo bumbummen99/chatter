@@ -57,5 +57,20 @@ class Category extends Model
     public function children() : HasMany
     {
         return $this->hasMany(Models::classname(self::class), 'parent_id')->orderBy('order', 'asc');
-    }    
+    }
+    
+    public function isChildOf(int $parentId) : bool
+    {
+        $category = $this;
+
+        while (($parent = $category->parent)) {
+            if ($parent->id === $parentId) {
+                return true;
+            } else {
+                $category = $parent;
+            }
+        }
+
+        return false;
+    }
 }
