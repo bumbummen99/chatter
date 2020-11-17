@@ -43,6 +43,6 @@ class Category extends Model
 
     public function children() : HasMany
     {
-        return $this->hasMany(Models::classname(self::class), 'parent_id');
+        return $this->hasMany(Models::classname(self::class), 'parent_id')->orderBy('order', 'asc');
     }    
 }

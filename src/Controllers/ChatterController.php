@@ -29,8 +29,8 @@ class ChatterController extends Controller
         $discussions = $discussions->paginate($pagination_results);
         
         $categories = Models::category()->get();
-        $categoriesMenu = Helper::categoriesMenu(array_filter($categories->toArray(), function ($item) {
-            return $item['parent_id'] === null;
+        $categoriesMenu = Helper::categoriesMenu($categories->filter(function ($value, $index) {
+            return is_null($value->parent_id);
         }));
         
         $chatter_editor = config('chatter.editor');

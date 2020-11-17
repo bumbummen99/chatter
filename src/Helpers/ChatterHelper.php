@@ -2,6 +2,8 @@
 
 namespace SkyRaptor\Chatter\Helpers;
 
+use Illuminate\Support\Collection;
+
 class ChatterHelper
 {
     /**
@@ -101,18 +103,21 @@ class ChatterHelper
      *
      * @return string
      */
-    public static function categoriesMenu($categories)
+    public static function categoriesMenu(Collection $categories)
     {
         $menu = '<ul class="nav nav-pills nav-stacked">';
 
+        /** @var \SkyRaptor\Chatter\Models\Category */
         foreach ($categories as $category) {
             $menu .= '<li>';
-            $menu .= '<a href="/'.config('chatter.routes.home').'/'.config('chatter.routes.category').'/'.$category['slug'].'">';
-            $menu .= '<div class="chatter-box" style="background-color:'.$category['color'].'"></div>';
-            $menu .= $category['name'].'</a>';
+            $menu .= '<a href="/' . config('chatter.routes.home') . '/' . config('chatter.routes.category') . '/' . $category->slug . '">';
+            $menu .= '<div class="chatter-box" style="background-color:' . $category['color'].'"></div>';
+            $menu .= $category->name . '</a>';
 
-            if (count($category['children'])) {
-                $menu .= static::categoriesMenu($category['children']);
+
+            $children = $category->children;
+            if (count($children)) {
+                $menu .= static::categoriesMenu($children);
             }
 
             $menu .= '</li>';
