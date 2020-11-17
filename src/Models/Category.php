@@ -31,6 +31,19 @@ class Category extends Model
         'children'
     ];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'color',
+        'order',
+        'parent_id',
+    ];
+
     public function discussions() : HasMany
     {
         return $this->hasMany(Models::className(Discussion::class),'chatter_category_id');
