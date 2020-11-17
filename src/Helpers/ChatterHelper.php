@@ -111,8 +111,8 @@ class ChatterHelper
             $menu .= '<div class="chatter-box" style="background-color:'.$category['color'].'"></div>';
             $menu .= $category['name'].'</a>';
 
-            if (count($category['parents'])) {
-                $menu .= static::categoriesMenu($category['parents']);
+            if (count($category['children'])) {
+                $menu .= static::categoriesMenu($category['children']);
             }
 
             $menu .= '</li>';
