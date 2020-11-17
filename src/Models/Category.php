@@ -3,6 +3,8 @@
 namespace SkyRaptor\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -10,13 +12,18 @@ class Category extends Model
     public $timestamps = true;
     public $with = 'parents';
 
-    public function discussions()
+    public function discussions() : HasMany
     {
         return $this->hasMany(Models::className(Discussion::class),'chatter_category_id');
     }
 
-    public function parents()
+    public function parent() : BelongsTo
     {
-        return $this->hasMany(Models::classname(self::class), 'parent_id')->orderBy('order', 'asc');
+        return $this->belongsTo(Models::classname(self::class), 'parent_id');
     }
+
+    public function children() : HasMany
+    {
+        return $this->hasMany(Models::classname(self::class), 'parent_id');
+    }    
 }
