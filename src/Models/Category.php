@@ -8,9 +8,29 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'chatter_categories';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = true;
-    public $with = 'parents';
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'parent',
+        'children'
+    ];
 
     public function discussions() : HasMany
     {
