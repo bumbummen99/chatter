@@ -21,6 +21,13 @@ return [
         'login'      => 'login',
     ],
 
+    'controllers' => [
+        'default'    => \SkyRaptor\Chatter\Controllers\ChatterController::class,
+        'discussion' => \SkyRaptor\Chatter\Controllers\ChatterDiscussionController::class,
+        'post'       => \SkyRaptor\Chatter\Controllers\ChatterPostController::class,
+        'atom'       => \SkyRaptor\Chatter\Controllers\ChatterAtomController::class,
+    ]
+
    /*
     |--------------------------------------------------------------------------
     | Headline logo
