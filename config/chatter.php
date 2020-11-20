@@ -26,7 +26,13 @@ return [
         'discussion' => \SkyRaptor\Chatter\Controllers\ChatterDiscussionController::class,
         'post'       => \SkyRaptor\Chatter\Controllers\ChatterPostController::class,
         'atom'       => \SkyRaptor\Chatter\Controllers\ChatterAtomController::class,
-    ]
+    ],
+
+    'models' => [
+        'category' => \SkyRaptor\Chatter\Models\Category::class,
+        'discussion' => \SkyRaptor\Chatter\Models\Discussion::class,
+        'post' => \SkyRaptor\Chatter\Models\Post::class,
+    ],
 
    /*
     |--------------------------------------------------------------------------

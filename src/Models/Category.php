@@ -5,6 +5,7 @@ namespace SkyRaptor\Chatter\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Config;
 
 class Category extends Model
 {
@@ -46,17 +47,17 @@ class Category extends Model
 
     public function discussions() : HasMany
     {
-        return $this->hasMany(Models::className(Discussion::class),'chatter_category_id');
+        return $this->hasMany(Config::get('chatter.models.discussion', Discussion::class),'chatter_category_id');
     }
 
     public function parent() : BelongsTo
     {
-        return $this->belongsTo(Models::classname(self::class), 'parent_id');
+        return $this->belongsTo(Config::get('chatter.models.category', self::class), 'parent_id');
     }
 
     public function children() : HasMany
     {
-        return $this->hasMany(Models::classname(self::class), 'parent_id')->orderBy('order', 'asc');
+        return $this->hasMany(Config::get('chatter.models.category', self::class), 'parent_id')->orderBy('order', 'asc');
     }
     
     public function isChildOf(int $parentId) : bool

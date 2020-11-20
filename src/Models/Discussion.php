@@ -4,34 +4,62 @@ namespace SkyRaptor\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Config;
 
 class Discussion extends Model
 {
     use SoftDeletes;
     
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'chatter_discussion';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = true;
-    protected $fillable = ['title', 'chatter_category_id', 'user_id', 'slug', 'color'];
-    protected $dates = ['deleted_at', 'last_reply_at'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'chatter_category_id',
+        'user_id',
+        'slug',
+        'color'
+    ];
+
+    protected $dates = [
+        'deleted_at',
+        'last_reply_at'
+    ];
 
     public function user()
     {
-        return $this->belongsTo(config('chatter.user.namespace'));
+        return $this->belongsTo(Config::get('chatter.user.namespace'));
     }
 
     public function category()
     {
-        return $this->belongsTo(Models::className(Category::class), 'chatter_category_id');
+        return $this->belongsTo(Config::get('chatter.models.category', Category::class), 'chatter_category_id');
     }
 
     public function posts()
     {
-        return $this->hasMany(Models::className(Post::class), 'chatter_discussion_id');
+        return $this->hasMany(Config::get('chatter.models.post', Post::class), 'chatter_discussion_id');
     }
 
     public function post()
     {
-        return $this->hasMany(Models::className(Post::class), 'chatter_discussion_id')->orderBy('created_at', 'ASC');
+        return $this->hasMany(Config::get('chatter.models.post', Post::class), 'chatter_discussion_id')->orderBy('created_at', 'ASC');
     }
 
     public function postsCount()
@@ -43,6 +71,6 @@ class Discussion extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
+        return $this->belongsToMany(Config::get('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
     }
 }

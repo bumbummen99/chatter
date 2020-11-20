@@ -8,6 +8,8 @@
 
 namespace SkyRaptor\Chatter\Models;
 
+use Illuminate\Support\Facades\Config;
+
 class Models
 {
     /**
@@ -18,42 +20,6 @@ class Models
     protected static $models = [];
 
     /**
-     * Set the model to be used for categories.
-     *
-     * @param string $model
-     *
-     * @return void
-     */
-    public static function setCategoryModel($model)
-    {
-        static::$models[Category::class] = $model;
-    }
-
-    /**
-     * Set the model to be used for discussions.
-     *
-     * @param string $model
-     *
-     * @return void
-     */
-    public static function setDiscussionModel($model)
-    {
-        static::$models[Discussion::class] = $model;
-    }
-
-    /**
-     * Set the model to be used for posts.
-     *
-     * @param string $model
-     *
-     * @return void
-     */
-    public static function setPostModel($model)
-    {
-        static::$models[Post::class] = $model;
-    }
-
-    /**
      * Get an instance of the category model.
      *
      * @param array $attributes
@@ -62,7 +28,7 @@ class Models
      */
     public static function category(array $attributes = [])
     {
-        return self::makeModel(Category::class, $attributes);
+        return self::makeModel(Config::get('chatter.models.category'), $attributes);
     }
 
     /**
@@ -74,7 +40,7 @@ class Models
      */
     public static function discussion(array $attributes = [])
     {
-        return self::makeModel(Discussion::class, $attributes);
+        return self::makeModel(Config::get('chatter.models.discussion'), $attributes);
     }
 
     /**
@@ -86,7 +52,7 @@ class Models
      */
     public static function post(array $attributes = [])
     {
-        return self::makeModel(Post::class, $attributes);
+        return self::makeModel(Config::get('chatter.models.post'), $attributes);
     }
 
     /**
@@ -99,24 +65,6 @@ class Models
      */
     protected static function makeModel($model, $attributes)
     {
-        $model = self::className($model);
-
         return new $model($attributes);
-    }
-
-    /**
-     * Get the correct class model.
-     *
-     * @param string $model
-     *
-     * @return string
-     */
-    public static function className($model)
-    {
-        if (isset(static::$models[$model])) {
-            $model = static::$models[$model];
-        }
-
-        return $model;
     }
 }
