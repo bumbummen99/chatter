@@ -67,7 +67,7 @@ Route::group([
         ->name('store');
 
         // Single discussion view.
-        Route::middleware($authMiddleware('discussion.store'))
+        Route::middleware($authMiddleware('discussion.show'))
         ->get('{category}/{slug}', [Config::get('chatter.controllers.discussion'), 'show'])
         ->name('showInCategory');
 
