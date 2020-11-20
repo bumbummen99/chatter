@@ -34,18 +34,14 @@ Route::group([
 ], function () use ($route, $middleware, $authMiddleware) {
 
     // Home view.
-    Route::get('/', [
-        'as'         => 'home',
-        'uses'       => [Config::get('chatter.controllers.default'), 'index'],
-        'middleware' => $middleware('home'),
-    ]);
+    Route::middleware($authMiddleware('home'))
+    ->get('/', [Config::get('chatter.controllers.default'), 'index'])
+    ->name('home');
 
     // Single category view.
-    Route::get($route('category').'/{slug}', [
-        'as'         => 'category.show',
-        'uses'       => [Config::get('chatter.controllers.default'), 'index'],
-        'middleware' => $middleware('category.show'),
-    ]);
+    Route::middleware($authMiddleware('category.show'))
+    ->get($route('category').'/{slug}', [Config::get('chatter.controllers.default'), 'index'])
+    ->name('category.show');
 
     /*
      * Discussion routes.
@@ -56,38 +52,28 @@ Route::group([
     ], function () use ($middleware, $authMiddleware) {
 
         // All discussions view.
-        Route::get('/', [
-            'as'         => 'index',
-            'uses'       => [Config::get('chatter.controllers.discussion'), 'index'],
-            'middleware' => $middleware('discussion.index'),
-        ]);
+        Route::middleware($authMiddleware('discussion.index'))
+        ->get('/', [Config::get('chatter.controllers.discussion'), 'index'])
+        ->name('index');
 
         // Create discussion view.
-        Route::get('create', [
-            'as'         => 'create',
-            'uses'       => [Config::get('chatter.controllers.discussion'), 'create'],
-            'middleware' => $authMiddleware('discussion.create'),
-        ]);
+        Route::middleware($authMiddleware('discussion.create'))
+        ->get('create', [Config::get('chatter.controllers.discussion'), 'create'])
+        ->name('create');
 
         // Store discussion action.
-        Route::post('/', [
-            'as'         => 'store',
-            'uses'       => [Config::get('chatter.controllers.discussion'), 'store'],
-            'middleware' => $authMiddleware('discussion.store'),
-        ]);
+        Route::middleware($authMiddleware('discussion.store'))
+        ->post('/', [Config::get('chatter.controllers.discussion'), 'store'])
+        ->name('store');
 
         // Single discussion view.
-        Route::get('{category}/{slug}', [
-            'as'         => 'showInCategory',
-            'uses'       => [Config::get('chatter.controllers.discussion'), 'show'],
-            'middleware' => $middleware('discussion.show'),
-        ]);
+        Route::middleware($authMiddleware('discussion.store'))
+        ->get('{category}/{slug}', [Config::get('chatter.controllers.discussion'), 'show'])
+        ->name('showInCategory');
 
         // Add user notification to discussion
-        Route::post('{category}/{slug}/email', [
-            'as'         => 'email',
-            'uses'       => [Config::get('chatter.controllers.discussion'), 'toggleEmailNotification'],
-        ]);
+        Route::post('{category}/{slug}/email', [Config::get('chatter.controllers.discussion'), 'toggleEmailNotification'])
+        ->name('email');
 
         /*
          * Specific discussion routes.
@@ -97,32 +83,24 @@ Route::group([
         ], function () use ($middleware, $authMiddleware) {
 
             // Single discussion view.
-            Route::get('/', [
-                'as'         => 'show',
-                'uses'       => [Config::get('chatter.controllers.discussion'), 'show'],
-                'middleware' => $middleware('discussion.show'),
-            ]);
+            Route::middleware($authMiddleware('discussion.show'))
+            ->get('/', [Config::get('chatter.controllers.discussion'), 'show'])
+            ->name('show');
 
             // Edit discussion view.
-            Route::get('edit', [
-                'as'         => 'edit',
-                'uses'       => [Config::get('chatter.controllers.discussion'), 'edit'],
-                'middleware' => $authMiddleware('discussion.edit'),
-            ]);
+            Route::middleware($authMiddleware('discussion.edit'))
+            ->get('edit', [Config::get('chatter.controllers.discussion'), 'edit'])
+            ->name('edit');
             
             // Update discussion action.
-            Route::match(['PUT', 'PATCH'], '/', [
-                'as'         => 'update',
-                'uses'       => [Config::get('chatter.controllers.discussion'), 'update'],
-                'middleware' => $authMiddleware('discussion.update'),
-            ]);
+            Route::middleware($authMiddleware('discussion.update'))
+            ->match(['PUT', 'PATCH'], '/', [Config::get('chatter.controllers.discussion'), 'update'])
+            ->name('update');
             
             // Destroy discussion action.
-            Route::delete('/', [
-                'as'         => 'destroy',
-                'uses'       => [Config::get('chatter.controllers.discussion'), 'destroy'],
-                'middleware' => $authMiddleware('discussion.destroy'),
-            ]);
+            Route::middleware($authMiddleware('discussion.destroy'))
+            ->delete('/', [Config::get('chatter.controllers.discussion'), 'destroy'])
+            ->name('destroy');
         });
     });
 
@@ -135,25 +113,19 @@ Route::group([
     ], function () use ($middleware, $authMiddleware) {
 
         // All posts view.
-        Route::get('/', [
-            'as'         => 'index',
-            'uses'       => [Config::get('chatter.controllers.post'), 'index'],
-            'middleware' => $middleware('post.index'),
-        ]);
+        Route::middleware($authMiddleware('post.index'))
+        ->get('/', [Config::get('chatter.controllers.post'), 'index'])
+        ->name('index');
 
         // Create post view.
-        Route::get('create', [
-            'as'         => 'create',
-            'uses'       => [Config::get('chatter.controllers.post'), 'create'],
-            'middleware' => $authMiddleware('post.create'),
-        ]);
+        Route::middleware($authMiddleware('post.create'))
+        ->get('create', [Config::get('chatter.controllers.post'), 'create'])
+        ->name('create');
 
         // Store post action.
-        Route::post('/', [
-            'as'         => 'store',
-            'uses'       => [Config::get('chatter.controllers.post'), 'store'],
-            'middleware' => $authMiddleware('post.store'),
-        ]);
+        Route::middleware($authMiddleware('post.store'))
+        ->post('/', [Config::get('chatter.controllers.post'), 'store'])
+        ->name('store');
 
         /*
          * Specific post routes.
@@ -163,18 +135,14 @@ Route::group([
         ], function () use ($middleware, $authMiddleware) {
 
             // Update post action.
-            Route::match(['PUT', 'PATCH'], '/', [
-                'as'         => 'update',
-                'uses'       => [Config::get('chatter.controllers.post'), 'update'],
-                'middleware' => $authMiddleware('post.update'),
-            ]);
+            Route::middleware($authMiddleware('post.update'))
+            ->match(['PUT', 'PATCH'], '/', [Config::get('chatter.controllers.post'), 'update'])
+            ->name('update');
 
             // Destroy post action.
-            Route::delete('/', [
-                'as'         => 'destroy',
-                'uses'       => [Config::get('chatter.controllers.post'), 'destroy'],
-                'middleware' => $authMiddleware('post.destroy'),
-            ]);
+            Route::middleware($authMiddleware('post.destroy'))
+            ->delete('/', [Config::get('chatter.controllers.post'), 'destroy'])
+            ->name('destroy');
         });
     });
 });
@@ -182,8 +150,6 @@ Route::group([
 /*
  * Atom routes
  */
-Route::get($route('home').'.atom', [
-    'as'         => 'chatter.atom',
-    'uses'       => [Config::get('chatter.controllers.atom'), 'index'],
-    'middleware' => $middleware('home'),
-]);
+Route::middleware($authMiddleware('home'))
+->get($route('home').'.atom', [Config::get('chatter.controllers.atom'), 'index'])
+->name('chatter.atom');
