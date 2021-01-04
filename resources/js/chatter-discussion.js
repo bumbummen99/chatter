@@ -1,6 +1,6 @@
-import initializeNewTinyMCE from './tinymce';
+import initializeNewTinyMCE from './bootstrap/tinymce';
 
-$('document').ready(function() {
+document.addEventListener("DOMContentLoaded", function() { 
     /* Get and process all posts on the page */
     for (const post of document.querySelectorAll('.post')) {
         /* Get the ID of the post */

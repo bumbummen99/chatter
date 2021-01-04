@@ -119,38 +119,9 @@ Since the forum uses your master layout file, you will need to include the neces
 
 In order to override Chatter's built in views, simply create a `chatter` folder in your `vendor` views folder, i.e. `ROOT/resources/views/vendor/chatter`. Then simply drop in the Chatter view files you would like to override.
 
-- [home.blade.php](https://github.com/thedevdojo/chatter/blob/master/src/Views/home.blade.php)
-- [discussion.blade.php](https://github.com/thedevdojo/chatter/blob/master/src/Views/discussion.blade.php)
+- [home.blade.php](https://github.com/skyraptor/chatter/blob/master/src/Views/home.blade.php)
+- [discussion.blade.php](https://github.com/skyraptor/chatter/blob/master/src/Views/discussion.blade.php)
 
-### Custom Function Hooks for the forum
-
-Sometimes you may want to add some additional functionality when a user creates a new discussion or adds a new response. Well, there are a few built in functions that you can create in your script to access this functionality:
-
-*Before User Adds New Discussion*
-Create a new global function in your script called:
-```
-function chatter_before_new_discussion($request, $validator){}
-```
-
-Note: that the `$request` object is passed with the user input for each webhook. You can use it if you would like :) If not, no worries just add your custom functionality.
-
-*After User Adds New Discussion*
-Create a new global function in your script called:
-```
-function chatter_after_new_discussion($request){}
-```
-
-*Before User Adds New Response*
-Create a new global function in your script called:
-```
-function chatter_before_new_response($request, $validator){}
-```
-
-*After User Adds New Response*
-Create a new global function in your script called:
-```
-function chatter_after_new_response($request){}
-```
 
 ### Laravel [Events](https://laravel.com/docs/events) for the forum
 
@@ -195,4 +166,4 @@ and
 
 ### Screenshots
 
-![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter-screenshot.jpg)
+![](https://raw.githubusercontent.com/skyraptor/chatter/master/public/images/chatter-screenshot.jpg)

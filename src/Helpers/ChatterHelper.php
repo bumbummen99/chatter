@@ -16,7 +16,6 @@ class ChatterHelper
     public static function stringToColorCode($string)
     {
         $code = dechex(crc32($string));
-
         return substr($code, 0, 6);
     }
 
@@ -95,36 +94,3 @@ class ChatterHelper
 
         return str_ireplace($originalHeaderTags, $demotedHeaderTags, $html);
     }
-
-    /**
-     * This function construct the categories menu with nested categories.
-     *
-     * @param array $categories
-     *
-     * @return string
-     */
-    public static function categoriesMenu(Collection $categories)
-    {
-        $menu = '<ul class="nav nav-pills nav-stacked">';
-
-        /** @var \SkyRaptor\Chatter\Models\Category */
-        foreach ($categories as $category) {
-            $menu .= '<li>';
-            $menu .= '<a href="/' . config('chatter.routes.home') . '/' . config('chatter.routes.category') . '/' . $category->slug . '">';
-            $menu .= '<div class="chatter-box" style="background-color:' . $category['color'].'"></div>';
-            $menu .= $category->name . '</a>';
-
-
-            $children = $category->children;
-            if (count($children)) {
-                $menu .= static::categoriesMenu($children);
-            }
-
-            $menu .= '</li>';
-        }
-
-        $menu .= '</ul>';
-
-        return $menu;
-    }
-}

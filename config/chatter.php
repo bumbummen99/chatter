@@ -1,26 +1,27 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Forum Routes
-    |--------------------------------------------------------------------------
-    |
-    | Here you can specify the specific routes for the different sections of
-    | your forum.
-    |
-    */
-
+    /**
+     * Forum Routes
+     * 
+     * Here you can specify the specific routes for the different sections of
+     * your forum.
+     */
     'routes' => [
         'home'       => 'forums',       // Base URI prefix
         'discussion' => 'discussion',
         'category'   => 'category',
         'post'       => 'posts',
         'register'   => 'register',
-        'login'      => 'login',
+        'login'      => 'login', // Name of your login route
     ],
 
+    /**
+     * Forum Controllers
+     * 
+     * These are the Controllers used for the forum. You can extend them in order to provide
+     * custom functionality such as resticting access by certain permissions for example.
+     */
     'controllers' => [
         'default'    => \SkyRaptor\Chatter\Controllers\ChatterController::class,
         'discussion' => \SkyRaptor\Chatter\Controllers\ChatterDiscussionController::class,
@@ -28,48 +29,33 @@ return [
         'atom'       => \SkyRaptor\Chatter\Controllers\ChatterAtomController::class,
     ],
 
+    /**
+     * The Models to be used by the package. You can ovveride these with your own ones
+     * in order to extend them with custom functionality.
+     */
     'models' => [
         'category' => \SkyRaptor\Chatter\Models\Category::class,
         'discussion' => \SkyRaptor\Chatter\Models\Discussion::class,
         'post' => \SkyRaptor\Chatter\Models\Post::class,
     ],
 
-   /*
-    |--------------------------------------------------------------------------
-    | Headline logo
-    |--------------------------------------------------------------------------
-    |
-    | Specify the url for your logo. If left empty the headline and
-    | description from the language files will be used.
-    |
-    |   *headline_logo*: If this is set an image will be used on the forum home
-    |       instead of text. Specify the relative path to the image here.
-    |
-    */
-
-    'headline_logo' => '/vendor/skyraptor/chatter/assets/images/logo-light.png',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Header and Footer Yield Inserts for your master file
-    |--------------------------------------------------------------------------
-    |
-    | Chatter needs to add css or javascript to the header and footer of your
-    | master layout file. You can choose what these will be called. FYI,
-    | chatter will only load resources when you hit a forum route.
-    |
-    | example:
-    | Inside of your <head></head> tag of your master file, you'll need to
-    | include @yield('css').
-    |
-    | Next, before the ending body </body>, you will need to include the footer
-    | yield like so @yield('js')
-    |
-    */
-
-    'yields' => [
-        'head'   => 'css',
-        'footer' => 'js',
+    /**
+     * Header and Footer Stack Inserts for your master file
+     * 
+     * Chatter needs to add css or javascript to the header and footer of your
+     * master layout file. You can choose what these will be called. FYI,
+     * chatter will only load resources when you hit a forum route.
+     * 
+     * Example:
+     * Inside of your <head></head> tag of your master file, you'll have to
+     * include the style stack like so: @stack('css').
+     * 
+     * Next, before the ending body </body>, you will need to include the script
+     * stack like so: @stack('js')
+     */
+    'stacks' => [
+        'style'   => 'css',
+        'script' => 'js',
     ],
 
     /*
@@ -83,19 +69,6 @@ return [
     */
 
     'master_file_extend' => 'layouts.app',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Sidebar option in discussion view
-    |--------------------------------------------------------------------------
-    |
-    | By default the sidebar is only included in home.blade.php
-    | if you set the value to true, it will also be included in
-    | discussion.blade.php
-    |
-    */
-
-    'sidebar_in_discussion_view' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -286,7 +259,8 @@ return [
     |
     | Configure the middleware applied to specific routes across Chatter. This
     | gives you full control over middleware throughout your application. You
-    | can allow public access to everything or limit to specific routes.
+    | can allow public access to everything or limit to specific routes. You can
+    | use theses to apply your own permission / group system.
     |
     | Authentication is enforced on create, store, edit, update, destroy routes,
     | no need to add 'auth' to these routes.

@@ -70,9 +70,6 @@ class ChatterDiscussionController extends Controller
         
 
         Event::dispatch(new ChatterBeforeNewDiscussion($request, $validator));
-        if (function_exists('chatter_before_new_discussion')) {
-            chatter_before_new_discussion($request, $validator);
-        }
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -90,7 +87,7 @@ class ChatterDiscussionController extends Controller
                                             ]),
                     ];
 
-                return redirect('/'.config('chatter.routes.home'))->with($chatter_alert)->withInput();
+                return redirect()->route('chatter.home')->with($chatter_alert)->withInput();
             }
         }
 
@@ -142,9 +139,6 @@ class ChatterDiscussionController extends Controller
 
         if ($post->id) {
             Event::dispatch(new ChatterAfterNewDiscussion($request, $discussion, $post));
-            if (function_exists('chatter_after_new_discussion')) {
-                chatter_after_new_discussion($request);
-            }
 
             $chatter_alert = [
                 'chatter_alert_type' => 'success',

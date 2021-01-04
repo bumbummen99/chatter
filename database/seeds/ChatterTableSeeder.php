@@ -218,7 +218,7 @@ class ChatterTableSeeder extends Seeder
                     'id'                    => 6,
                     'chatter_discussion_id' => 7,
                     'user_id'               => 1,
-                    'body'                  => '<p>If you would like to leave some feedback or have any issues be sure to visit the github page here: <a href="https://github.com/thedevdojo/chatter" target="_blank">https://github.com/thedevdojo/chatter</a>&nbsp;and I\'m sure I can help out.</p>
+                    'body'                  => '<p>If you would like to leave some feedback or have any issues be sure to visit the github page here: <a href="https://github.com/skyraptor/chatter" target="_blank">https://github.com/skyraptor/chatter</a>&nbsp;and I\'m sure I can help out.</p>
         <p>Let\'s make this package the go to Laravel Forum package. Feel free to contribute and share your ideas :)</p>',
                 'created_at' => '2016-08-18 14:42:29',
                 'updated_at' => '2016-08-18 14:42:29',
@@ -262,7 +262,7 @@ class ChatterTableSeeder extends Seeder
             'chatter_discussion_id' => 9,
             'user_id'               => 1,
             'body'                  => '<p>Hey There!</p>
-        <p>My name is Tony and I\'m the creator of this package that you\'ve just installed. Thanks for checking out it out and if you have any questions or want to contribute be sure to checkout the repo here: <a href="https://github.com/thedevdojo/chatter" target="_blank">https://github.com/thedevdojo/chatter</a></p>
+        <p>My name is Tony and I\'m the creator of this package that you\'ve just installed. Thanks for checking out it out and if you have any questions or want to contribute be sure to checkout the repo here: <a href="https://github.com/skyraptor/chatter" target="_blank">https://github.com/skyraptor/chatter</a></p>
         <p>Happy programming!</p>',
             'created_at' => '2016-08-18 14:59:37',
             'updated_at' => '2016-08-18 14:59:37',

@@ -10,8 +10,11 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.setPublicPath('./public');
 
-mix.js('./resources/js/chatter-discussion.js', 'public/assets/js')
-.js('./resources/js/chatter-home.js', 'public/assets/js')
-.sass('./resources/sass/chatter.scss', 'public/assets/css')
-.sass('./resources/sass/tinymce.scss', 'public/assets/css');
+mix
+.js('./resources/js/chatter-discussion.js', 'public/js')
+.js('./resources/js/chatter-home.js', 'public/js')
+.sass('./resources/sass/chatter.scss', 'public/css')
+.sass('./resources/sass/tinymce.scss', 'public/css')
+.version();

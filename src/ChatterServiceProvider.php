@@ -13,9 +13,10 @@ class ChatterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__.'/Lang', 'chatter');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'chatter');
+
         $this->publishes([
-            __DIR__.'/../public/assets' => public_path('vendor/skyraptor/chatter/assets'),
+            __DIR__.'/../public' => public_path('vendor/skyraptor/chatter'),
         ], 'chatter_assets');
 
         $this->publishes([
@@ -31,7 +32,15 @@ class ChatterServiceProvider extends ServiceProvider
         ], 'chatter_seeds');
 
         $this->publishes([
-            __DIR__.'/Lang' => resource_path('lang/vendor/chatter'),
+            __DIR__.'/../resources/sass' => resource_path('sass/vendor/chatter'),
+        ], 'chatter_resources');
+
+        $this->publishes([
+            __DIR__.'/../resources/js' => resource_path('js/vendor/chatter'),
+        ], 'chatter_resources');
+
+        $this->publishes([
+            __DIR__.'/../resources/lang' => resource_path('lang/vendor/chatter'),
         ], 'chatter_lang');
 
         // include the routes file
@@ -55,6 +64,9 @@ class ChatterServiceProvider extends ServiceProvider
          */
         $this->app->alias('Mews\Purifier\Facades\Purifier', 'Purifier');
 
-        $this->loadViewsFrom(__DIR__ . '/Views', 'chatter');
+        /*
+         * Load view files.
+         */
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'chatter');
     }
 }

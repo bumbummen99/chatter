@@ -69971,126 +69971,10 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./resources/js/chatter-discussion.js":
-/*!********************************************!*\
-  !*** ./resources/js/chatter-discussion.js ***!
-  \********************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tinymce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tinymce */ "./resources/js/tinymce.js");
-function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-$('document').ready(function () {
-  /* Get and process all posts on the page */
-  var _iterator = _createForOfIteratorHelper(document.querySelectorAll('.post')),
-      _step;
-
-  try {
-    var _loop = function _loop() {
-      var post = _step.value;
-
-      /* Get the ID of the post */
-      var postId = post.getAttribute('data-id');
-      /* Get edit button and attach event listener */
-
-      var btnEdit = post.querySelectorAll('.chatter_edit_btn');
-
-      if (btnEdit.length) {
-        var main = post.querySelectorAll('.main')[0];
-        var body = post.querySelectorAll('.body')[0];
-        btnEdit[0].addEventListener('click', function (e) {
-          /* Add Editing class */
-          post.classList.add('editing');
-          /* Create a textarea */
-
-          var textarea = document.createElement('textarea');
-          textarea.setAttribute('id', 'post-edit-' + postId);
-          /* Client side XSS fix */
-
-          textarea.value = body.innerHTML;
-          /* Add textarea to the post */
-
-          main.insertBefore(textarea, main.firstChild);
-          /* Create new editor from text area */
-
-          Object(_tinymce__WEBPACK_IMPORTED_MODULE_0__["default"])('post-edit-' + postId);
-        });
-      }
-      /* Get cancel edit button and attach event listener */
-
-
-      var btnCancelEdit = post.querySelectorAll('.cancel_chatter_edit');
-
-      if (btnCancelEdit.length) {
-        btnCancelEdit[0].addEventListener('click', function (e) {
-          /* Remove TinyMCE-Editor */
-          tinymce.remove('#post-edit-' + postId);
-          document.querySelector('#post-edit-' + postId).remove();
-          /* Remove editing class */
-
-          post.classList.remove('editing');
-        });
-      }
-      /* Get cancel edit button and attach event listener */
-
-
-      var btnSaveEdit = post.querySelectorAll('.update_chatter_edit');
-
-      if (btnSaveEdit.length) {
-        var form = post.querySelectorAll('.post-edit-form')[0];
-        btnSaveEdit[0].addEventListener('click', function (e) {
-          /* Get updated content */
-          var body = tinyMCE.get('post-edit-' + postId).getContent();
-          /* Submit changes */
-
-          form.querySelectorAll('input[name="body"]')[0].value = body;
-          form.submit();
-        });
-      }
-      /* Get delete post button and attach event listener */
-
-
-      var btnDelete = post.querySelectorAll('.btn-delete-post');
-
-      if (btnDelete.length) {
-        var _form = post.querySelectorAll('.post-delete-form')[0];
-        btnDelete[0].addEventListener('click', function (e) {
-          /* Submit changes */
-          _form.submit();
-        });
-      }
-    };
-
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      _loop();
-    }
-    /* Add Listener to new response submit button */
-
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-
-  document.querySelector('#submit_response').addEventListener('click', function (event) {
-    document.querySelector('#chatter_form_editor').submit();
-  });
-});
-
-/***/ }),
-
-/***/ "./resources/js/tinymce.js":
-/*!*********************************!*\
-  !*** ./resources/js/tinymce.js ***!
-  \*********************************/
+/***/ "./resources/js/bootstrap/tinymce.js":
+/*!*******************************************!*\
+  !*** ./resources/js/bootstrap/tinymce.js ***!
+  \*******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -70185,6 +70069,122 @@ function initializeNewTinyMCE(id) {
     height: '300'
   }, options));
 }
+
+/***/ }),
+
+/***/ "./resources/js/chatter-discussion.js":
+/*!********************************************!*\
+  !*** ./resources/js/chatter-discussion.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bootstrap_tinymce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap/tinymce */ "./resources/js/bootstrap/tinymce.js");
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  /* Get and process all posts on the page */
+  var _iterator = _createForOfIteratorHelper(document.querySelectorAll('.post')),
+      _step;
+
+  try {
+    var _loop = function _loop() {
+      var post = _step.value;
+
+      /* Get the ID of the post */
+      var postId = post.getAttribute('data-id');
+      /* Get edit button and attach event listener */
+
+      var btnEdit = post.querySelectorAll('.chatter_edit_btn');
+
+      if (btnEdit.length) {
+        var main = post.querySelectorAll('.main')[0];
+        var body = post.querySelectorAll('.body')[0];
+        btnEdit[0].addEventListener('click', function (e) {
+          /* Add Editing class */
+          post.classList.add('editing');
+          /* Create a textarea */
+
+          var textarea = document.createElement('textarea');
+          textarea.setAttribute('id', 'post-edit-' + postId);
+          /* Client side XSS fix */
+
+          textarea.value = body.innerHTML;
+          /* Add textarea to the post */
+
+          main.insertBefore(textarea, main.firstChild);
+          /* Create new editor from text area */
+
+          Object(_bootstrap_tinymce__WEBPACK_IMPORTED_MODULE_0__["default"])('post-edit-' + postId);
+        });
+      }
+      /* Get cancel edit button and attach event listener */
+
+
+      var btnCancelEdit = post.querySelectorAll('.cancel_chatter_edit');
+
+      if (btnCancelEdit.length) {
+        btnCancelEdit[0].addEventListener('click', function (e) {
+          /* Remove TinyMCE-Editor */
+          tinymce.remove('#post-edit-' + postId);
+          document.querySelector('#post-edit-' + postId).remove();
+          /* Remove editing class */
+
+          post.classList.remove('editing');
+        });
+      }
+      /* Get cancel edit button and attach event listener */
+
+
+      var btnSaveEdit = post.querySelectorAll('.update_chatter_edit');
+
+      if (btnSaveEdit.length) {
+        var form = post.querySelectorAll('.post-edit-form')[0];
+        btnSaveEdit[0].addEventListener('click', function (e) {
+          /* Get updated content */
+          var body = tinyMCE.get('post-edit-' + postId).getContent();
+          /* Submit changes */
+
+          form.querySelectorAll('input[name="body"]')[0].value = body;
+          form.submit();
+        });
+      }
+      /* Get delete post button and attach event listener */
+
+
+      var btnDelete = post.querySelectorAll('.btn-delete-post');
+
+      if (btnDelete.length) {
+        var _form = post.querySelectorAll('.post-delete-form')[0];
+        btnDelete[0].addEventListener('click', function (e) {
+          /* Submit changes */
+          _form.submit();
+        });
+      }
+    };
+
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      _loop();
+    }
+    /* Add Listener to new response submit button */
+
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  document.querySelector('#submit_response').addEventListener('click', function (event) {
+    document.querySelector('#chatter_form_editor').submit();
+  });
+});
 
 /***/ }),
 

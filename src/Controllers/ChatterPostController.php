@@ -57,9 +57,6 @@ class ChatterPostController extends Controller
 		]);
 
         Event::dispatch(new ChatterBeforeNewResponse($request, $validator));
-        if (function_exists('chatter_before_new_response')) {
-            chatter_before_new_response($request, $validator);
-        }
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -99,9 +96,6 @@ class ChatterPostController extends Controller
             $discussion->save();
             
             Event::dispatch(new ChatterAfterNewResponse($request, $new_post));
-            if (function_exists('chatter_after_new_response')) {
-                chatter_after_new_response($request);
-            }
 
             // if email notifications are enabled
             if (config('chatter.email.enabled')) {

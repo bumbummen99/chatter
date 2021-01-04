@@ -3,7 +3,6 @@
 namespace SkyRaptor\Chatter\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use SkyRaptor\Chatter\Helpers\ChatterHelper as Helper;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
@@ -28,11 +27,6 @@ class ChatterController extends Controller
         
         $discussions = $discussions->paginate($pagination_results);
         
-        $categories = Models::category()->get();
-        $categoriesMenu = Helper::categoriesMenu($categories->filter(function ($value, $index) {
-            return is_null($value->parent_id);
-        }));
-        
         $chatter_editor = config('chatter.editor');
         
         if ($chatter_editor == 'simplemde') {
@@ -40,7 +34,12 @@ class ChatterController extends Controller
             App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
         
-        return view('chatter::home', compact('discussions', 'categories', 'categoriesMenu', 'chatter_editor', 'current_category_id'));
+        return view('chatter::home', [
+            'discussions' => $discussions,
+            'categories' => Models::category()->get(),
+            'chatter_editor' => $chatter_editor,
+            'current_category_id' => $current_category_id,
+        ]);
     }
     
     public function login()
