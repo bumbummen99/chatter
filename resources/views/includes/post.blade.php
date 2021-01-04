@@ -32,7 +32,7 @@
                 <!-- Post Content -->
                 <div class="main text-white">
                     <div class="body text-break">
-                        {!! $post->body !!}
+                        {!! \GrahamCampbell\Markdown\Facades\Markdown::convertToHtml($post->body) !!}
                     </div>
                 </div>
             </div>

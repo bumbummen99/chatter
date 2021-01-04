@@ -36,7 +36,10 @@
                 <!-- Post Content -->
                 <div class="main flex-fill text-white">
                     <div class="body text-break">
-                        {{ substr(strip_tags($discussion->post[0]->body), 0, 200) }}@if(strlen(strip_tags($discussion->post[0]->body)) > 200){{ '...' }}@endif
+                        @php
+                        $text = strip_tags(\GrahamCampbell\Markdown\Facades\Markdown::convertToHtml($discussion->post[0]->body));
+                        @endphp
+                        {{ substr($text, 0, 200) }}@if(strlen(strip_tags($text)) > 200){{ '...' }}@endif
                     </div>
                 </div>
                 <div class="p-3 text-primary text-center">
