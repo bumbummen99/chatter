@@ -110,7 +110,7 @@
 @endpush
 
 @push(Config::get('chatter.stacks.script'))
-<script src="{{ asset('js/chatter-home.js', 'vendor/skyraptor/chatter') }}"></script>
+<script src="{{ mix('js/chatter-home.js', 'vendor/skyraptor/chatter') }}"></script>
 <script>
 	$('document').ready(function(){
 		for (const element of document.querySelectorAll('.cancel-discussion')) {

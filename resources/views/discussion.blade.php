@@ -100,9 +100,9 @@
 @endsection
 
 @push(Config::get('chatter.stacks.style'))
-<script src="{{ asset('css/chatter.css', 'vendor/skyraptor/chatter') }}"></script>
+<script src="{{ mix('css/chatter.css', 'vendor/skyraptor/chatter') }}"></script>
 @endpush
 
 @push(Config::get('chatter.stacks.script'))
-<script src="{{ asset('js/chatter-discussion.js', 'vendor/skyraptor/chatter') }}"></script>
+<script src="{{ mix('js/chatter-discussion.js', 'vendor/skyraptor/chatter') }}"></script>
 @endpush
