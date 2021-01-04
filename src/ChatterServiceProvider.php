@@ -55,16 +55,6 @@ class ChatterServiceProvider extends ServiceProvider
     public function register()
     {
         /*
-         * Register the service provider for the dependency.
-         */
-        $this->app->register(\Mews\Purifier\PurifierServiceProvider::class);
-
-        /*
-         * Create aliases for the dependency.
-         */
-        $this->app->alias('Mews\Purifier\Facades\Purifier', 'Purifier');
-
-        /*
          * Load view files.
          */
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'chatter');

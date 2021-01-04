@@ -126,11 +126,8 @@ class ChatterDiscussionController extends Controller
             'chatter_discussion_id' => $discussion->id,
             'user_id'               => $user_id,
             'body'                  => $request->body,
-            ];
-
-        if (config('chatter.editor') == 'simplemde'):
-           $new_post['markdown'] = 1;
-        endif;
+            'markdown'              => 1,
+        ];
 
         // add the user to automatically be notified when new posts are submitted
         $discussion->users()->attach($user_id);

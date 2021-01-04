@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Mews\Purifier\Facades\Purifier;
 
 class ChatterPostController extends Controller
 {
@@ -76,10 +74,7 @@ class ChatterPostController extends Controller
         }
 
         $request->request->add(['user_id' => Auth::user()->id]);
-
-        if (config('chatter.editor') == 'simplemde'):
-            $request->request->add(['markdown' => 1]);
-        endif;
+        $request->request->add(['markdown' => 1]);
 
         $new_post = Models::post()->create($request->all());
 
@@ -151,11 +146,7 @@ class ChatterPostController extends Controller
 
         $post = Models::post()->find($id);
         if (!Auth::guest() && (Auth::user()->id == $post->user_id)) {
-            if ($post->markdown) {
-                $post->body = $request->body;
-            } else {
- 	        $post->body = Purifier::clean($request->body);
-            }
+            $post->body = $request->body;
             $post->save();
 
             $discussion = Models::discussion()->find($post->chatter_discussion_id);
