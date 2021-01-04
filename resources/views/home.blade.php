@@ -76,7 +76,7 @@
 					<select id="chatter_category_id" class="form-control" name="chatter_category_id">
 						<option value="">@lang('chatter::messages.editor.select')</option>
 						@foreach($categories as $category)
-							<option value="{{ $category->id }}" {{(old('chatter_category_id') == $category->id) || (!empty($current_category_id) && $current_category_id == $category->id)) ? 'selected' : ''}}>{{ $category->name }}</option>
+							<option value="{{ $category->id }}" {{(old('chatter_category_id') == $category->id) || (!empty($current_category_id) && $current_category_id == $category->id) ? 'selected' : ''}}>{{ $category->name }}</option>
 						@endforeach
 					</select>
 				</div>
