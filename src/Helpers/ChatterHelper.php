@@ -94,3 +94,4 @@ class ChatterHelper
 
         return str_ireplace($originalHeaderTags, $demotedHeaderTags, $html);
     }
+}
