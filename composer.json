@@ -19,7 +19,8 @@
         "illuminate/http": "^6.0|^7.0|^8.0",
         "illuminate/bus": "^6.0|^7.0|^8.0",
         "illuminate/mail": "^6.0|^7.0|^8.0",
-        "illuminate/queue": "^6.0|^7.0|^8.0"
+        "illuminate/queue": "^6.0|^7.0|^8.0",
+        "graham-campbell/markdown": "^13.1"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0|^5.0|^6.0",

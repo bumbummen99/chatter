@@ -1,6 +1,10 @@
-import initializeNewTinyMCE from './bootstrap/tinymce';
-
 document.addEventListener("DOMContentLoaded", function() { 
+    /* Initialize new response editor */
+    new EasyMDE({element: document.getElementById('new-response-textarea')});
+
+    /* Lookup for post edit editors */
+    const editors = [];
+
     /* Get and process all posts on the page */
     for (const post of document.querySelectorAll('.post')) {
         /* Get the ID of the post */
@@ -27,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 main.insertBefore(textarea, main.firstChild);
 
                 /* Create new editor from text area */
-                initializeNewTinyMCE('post-edit-' + postId);
+                editors[postId] = new EasyMDE({element: document.getElementById('post-edit-' + postId)});
             });
         }
 
@@ -35,8 +39,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const btnCancelEdit = post.querySelectorAll('.cancel_chatter_edit');
         if (btnCancelEdit.length) {
             btnCancelEdit[0].addEventListener('click', e => {
-                /* Remove TinyMCE-Editor */
-                tinymce.remove('#post-edit-' + postId);
+                /* Remove EasyMDE */
+                editors[postId].toTextArea();
+                editors[postId] = null;
+                
+                /* Remove the textarea */
                 document.querySelector('#post-edit-' + postId).remove();
 
                 /* Remove editing class */
@@ -51,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             btnSaveEdit[0].addEventListener('click', e => {
                 /* Get updated content */
-                const body = tinyMCE.get('post-edit-' + postId).getContent();
+                const body = editors[postId].value();
 
                 /* Submit changes */
                 form.querySelectorAll('input[name="body"]')[0].value = body;

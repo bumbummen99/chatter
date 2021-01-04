@@ -139,45 +139,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Chatter Editor
-    |--------------------------------------------------------------------------
-    |
-    | You may wish to choose between a couple different editors. At the moment
-    | The following editors are supported:
-    |   - tinymce    (https://www.tinymce.com/)
-    |   - simplemde  (https://simplemde.com/)
-    |   - trumbowyg  (https://alex-d.github.io/Trumbowyg/) - requires jQuery >= 1.8
-    |
-    */
-
-    'editor' => 'tinymce',
-
-    /*
-    |--------------------------------------------------------------------------
-    | TinyMCE WYSIWYG Editor Options (Must be the selected editor)
-    |--------------------------------------------------------------------------
-    |
-    | Select which tools you want to appear in the tinymce editor toolbar.
-    | Find out the available tools here:
-    | tinymce.com/docs/advanced/editor-control-identifiers/#toolbarcontrols
-    |
-    |   *toolbar*: The controls you want to appear in the toolbar
-    |
-    |   *plugins*: Sometimes in order to add a control to the toolbar you may
-    |       need to specify to include the plugin for the control. You can
-    |       learn more about this in the link above. If it is part of the
-    |       'core' you do not need to include a plugin in order to use it
-    |       in the toolbar.
-    |
-    */
-
-    'tinymce' => [
-        'toolbar' => 'bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
-        'plugins' => 'link, image, paste',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Default orderby
     |--------------------------------------------------------------------------
     |
@@ -194,23 +155,6 @@ return [
             'order' => 'last_reply_at',
             'by' => 'DESC'
         ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Email Notification Settings
-    |--------------------------------------------------------------------------
-    |
-    | The following are settings that you can use to modify the email settings
-    |   - enabled (if you would like to enable or disable email notifications)
-    |   - view (the email view sent) $discussion var is passed to view
-    |   -
-    |
-    */
-
-    'email' => [
-        'enabled' => false,
-        'view'    => 'chatter::email',
     ],
 
     /*

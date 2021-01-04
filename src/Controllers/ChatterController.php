@@ -40,7 +40,7 @@ class ChatterController extends Controller
         return view('chatter::home', [
             'discussions' => $discussions,
             'categories' => Models::category()->get(),
-            'chatter_editor' => $chatter_editor,
+            'chatter_editor' => ,
             'current_category_id' => $current_category_id,
         ]);
     }

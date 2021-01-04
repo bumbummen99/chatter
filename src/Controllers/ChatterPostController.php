@@ -5,7 +5,6 @@ namespace SkyRaptor\Chatter\Controllers;
 use Carbon\Carbon;
 use SkyRaptor\Chatter\Events\ChatterAfterNewResponse;
 use SkyRaptor\Chatter\Events\ChatterBeforeNewResponse;
-use SkyRaptor\Chatter\Mail\ChatterDiscussionUpdated;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -97,12 +96,6 @@ class ChatterPostController extends Controller
             
             Event::dispatch(new ChatterAfterNewResponse($request, $new_post));
 
-            // if email notifications are enabled
-            if (config('chatter.email.enabled')) {
-                // Send email notifications about new post
-                $this->sendEmailNotifications($new_post->discussion);
-            }
-
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => trans('chatter::alert.success.reason.submitted_to_post'),
@@ -132,14 +125,6 @@ class ChatterPostController extends Controller
         }
 
         return false;
-    }
-
-    private function sendEmailNotifications($discussion)
-    {
-        $users = $discussion->users->except(Auth::user()->id);
-        foreach ($users as $user) {
-            Mail::to($user)->queue(new ChatterDiscussionUpdated($discussion));
-        }
     }
 
     /**

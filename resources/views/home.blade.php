@@ -53,11 +53,6 @@
 
 <div id="new-discussion" class="fixed-bottom" style="display:none;">
 	<div class="container bg-dark mh-50 overflow-auto pt-3 pb-3">
-		<div class="d-none">
-			<div id="new_discussion_loader"></div>
-			<label id="tinymce_placeholder">@lang('chatter::messages.editor.tinymce_placeholder')</label>
-		</div>
-
 		<form id="chatter_form_editor" action="{{ route('chatter.discussion.store') }}" method="POST">
 			@csrf
 
@@ -85,7 +80,7 @@
 			<!-- BODY -->
 			<div class="row mb-3">
 				<div class="col-12">
-					<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+					<textarea id="new-discussion-textarea" name="body" placeholder="@lang('chatter::messages.editor.tinymce_placeholder')">{{ old('body') }}</textarea>
 				</div>
 			</div>
 
@@ -100,8 +95,6 @@
 	</div>
 </div>
 
-<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
-<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
 <input type="hidden" id="current_path" value="{{ Request::path() }}">
 @endsection
 
@@ -112,7 +105,7 @@
 @push(Config::get('chatter.stacks.script'))
 <script src="{{ mix('js/chatter-home.js', 'vendor/skyraptor/chatter') }}"></script>
 <script>
-	$('document').ready(function(){
+	$('document').ready(function() {
 		for (const element of document.querySelectorAll('.cancel-discussion')) {
 			element.addEventListener('click', event => {
 				$('#new-discussion').slideUp();

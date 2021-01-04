@@ -66,8 +66,7 @@
 
 							<!-- Body -->
 							<div id="editor">
-								<label id="tinymce_placeholder" class="d-none">@lang('chatter::messages.editor.tinymce_placeholder')</label>
-								<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+								<textarea id="new-response-textarea" name="body" placeholder="@lang('chatter::messages.editor.tinymce_placeholder')">{{ old('body') }}</textarea>
 							</div>
 
 							<!-- Discussion -->
@@ -94,8 +93,6 @@
 	</div>
 </section>
 
-<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
-<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
 <input type="hidden" id="current_path" value="{{ Request::path() }}">
 @endsection
 
