@@ -2,6 +2,7 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Routing\Controller;
@@ -24,6 +25,8 @@ class ChatterController extends Controller
                 $current_category_id = null;
             }
         }
+
+        $discussions = static::disucssionsQuery($discussions);
         
         $discussions = $discussions->paginate($pagination_results);
         
@@ -58,5 +61,10 @@ class ChatterController extends Controller
                 'redirect' => config('chatter.routes.home')
             ])->with('flash_message', 'Please register for an account.');
         }
+    }
+
+    protected static function disucssionsQuery(Builder $query) : Builder
+    {
+        return $query;
     }
 }
