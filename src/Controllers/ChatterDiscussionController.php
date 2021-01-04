@@ -195,16 +195,9 @@ class ChatterDiscussionController extends Controller
         }
         $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy(config('chatter.order_by.posts.order'), config('chatter.order_by.posts.by'))->paginate(10);
 
-        $chatter_editor = config('chatter.editor');
-
-        if ($chatter_editor == 'simplemde') {
-            // Dynamically register markdown service provider
-            App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
-        }
-
         $discussion->increment('views');
         
-        return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
+        return view('chatter::discussion', compact('discussion', 'posts'));
     }
 
     /**

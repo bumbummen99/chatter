@@ -30,17 +30,9 @@ class ChatterController extends Controller
         
         $discussions = $discussions->paginate($pagination_results);
         
-        $chatter_editor = config('chatter.editor');
-        
-        if ($chatter_editor == 'simplemde') {
-            // Dynamically register markdown service provider
-            App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
-        }
-        
         return view('chatter::home', [
             'discussions' => $discussions,
             'categories' => Models::category()->get(),
-            'chatter_editor' => ,
             'current_category_id' => $current_category_id,
         ]);
     }
