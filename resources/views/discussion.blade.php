@@ -55,12 +55,8 @@
 
 				@auth
 				<h2 class="mb-4">@lang('forum.newResponse')</h2>
-				<div id="new_response">
-					<div id="new_discussion">
-						<div class="chatter_loader dark" id="new_discussion_loader">
-							<div></div>
-						</div>
-
+				<div class="new-response">
+					<div class="form">
 						<form id="chatter_form_editor" action="{{ route('chatter.posts.store') }}" method="POST">
 							@csrf
 
@@ -74,7 +70,7 @@
 						</form>
 					</div><!-- #new_response -->
 
-					<div id="discussion_response_email" class="p-2 bg-white">
+					<div class="footer p-2">
 						<button id="submit_response" class="btn btn-success float-right"><i class="fas fa-plus-circle"></i> @lang('chatter::messages.response.submit')</button>
 						<div class="clearfix"></div>
 					</div>

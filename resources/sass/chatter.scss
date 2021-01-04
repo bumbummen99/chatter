@@ -132,6 +132,15 @@ section.forum {
             }
         }
     }
+
+    .new-response {
+        background-color: $chatter-post-background-color;
+        border: 5px solid $chatter-post-border-color;
+
+        .footer {
+            background-color: $chatter-post-border-color;  
+        }
+    }
 }
 
 section.discussion-header {
