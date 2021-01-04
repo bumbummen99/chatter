@@ -1,5 +1,3 @@
-import * as EasyMDE from 'easymde';
-
 document.addEventListener("DOMContentLoaded", function() { 
     /* Initialize new response editor */
     new EasyMDE({element: document.getElementById('new-response-textarea')});

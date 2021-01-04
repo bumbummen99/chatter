@@ -97,9 +97,11 @@
 @endsection
 
 @push(Config::get('chatter.stacks.style'))
+<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
 <script src="{{ mix('css/chatter.css', 'vendor/skyraptor/chatter') }}"></script>
 @endpush
 
 @push(Config::get('chatter.stacks.script'))
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <script src="{{ mix('js/chatter-discussion.js', 'vendor/skyraptor/chatter') }}"></script>
 @endpush

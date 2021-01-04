@@ -99,45 +99,47 @@
 @endsection
 
 @push(Config::get('chatter.stacks.style'))
+<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
 <script src="{{ mix('css/chatter.css', 'vendor/skyraptor/chatter') }}"></script>
 @endpush
 
 @push(Config::get('chatter.stacks.script'))
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <script src="{{ mix('js/chatter-home.js', 'vendor/skyraptor/chatter') }}"></script>
 <script>
-	$('document').ready(function() {
-		for (const element of document.querySelectorAll('.cancel-discussion')) {
-			element.addEventListener('click', event => {
-				$('#new-discussion').slideUp();
-			});
-		}
-	});
+document.addEventListener("DOMContentLoaded", function() {
+	for (const element of document.querySelectorAll('.cancel-discussion')) {
+		element.addEventListener('click', event => {
+			$('#new-discussion').slideUp();
+		});
+	}
+});
 </script>
 @if (Auth::user())
 <script>
-	$('document').ready(function(){
-		document.querySelector('#new_discussion_btn').addEventListener('click', event => {
-			$('#new-discussion').slideDown();
-			$('#title').focus();
-		});
+document.addEventListener("DOMContentLoaded", function() {
+	document.querySelector('#new_discussion_btn').addEventListener('click', event => {
+		$('#new-discussion').slideDown();
+		document.getElementById('title').focus();
 	});
+});
 </script>
 @else
 <script>
-	$('document').ready(function(){
-		document.querySelector('#new_discussion_btn').addEventListener('click', event => {
-			window.location.href = "{{ route(Config::get('chatter.routes.login')) }}";
-		});
+document.addEventListener("DOMContentLoaded", function() {
+	document.querySelector('#new_discussion_btn').addEventListener('click', event => {
+		window.location.href = "{{ route(Config::get('chatter.routes.login')) }}";
 	});
+});
 </script>
 @endif
 
 @if (count($errors) > 0)
 <script>
-	$('document').ready(function(){
-		$('#new-discussion').slideDown();
-		$('#title').focus();
-	});
+document.addEventListener("DOMContentLoaded", function() {
+	$('#new-discussion').slideDown();
+	document.getElementById('title').focus();
+});
 </script>
 @endif
 @endpush

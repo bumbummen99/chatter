@@ -16,5 +16,4 @@ mix
 .js('./resources/js/chatter-discussion.js', 'public/js')
 .js('./resources/js/chatter-home.js', 'public/js')
 .sass('./resources/sass/chatter.scss', 'public/css')
-.sass('./resources/sass/easymde.scss', 'public/css')
 .version();
