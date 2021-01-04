@@ -1,11 +1,11 @@
-<div class="row post mb-3" data-id="{{ $post->id }}">
+<div class="row row-no-gutters post mb-3" data-id="{{ $post->id }}">
     <!-- Left -->
-    <div class="left col-12 col-sm-2 py-3">
+    <div class="left col-12 col-sm-2 p-3">
         <div class="avatar">
             @if(Config::get('chatter.user.avatar_image_database_field'))
                 <!-- If the user db field contains http:// or https:// we don't need to use the relative path to the image assets -->
                 @if( (substr($post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field')), 0, 7) == 'http://') || (substr($post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field')), 0, 8) == 'https://') )
-                <img src="{{ $post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field'))  }}" {!! $post->user->main_group ? 'style="border-color:' . $post->user->main_group->color . ' !important"' : '' !!} class="img-fluid d-block mx-auto rounded">
+                <img src="{{ $post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field'))  }}" class="img-fluid d-block mx-auto rounded">
                 @else
                 <img src="{{ Config::get('chatter.user.relative_url_to_image_assets') . $post->user->getAttribute(Config::get('chatter.user.avatar_image_database_field'))  }}" class="img-fluid d-block mx-auto rounded">
                 @endif
@@ -20,7 +20,7 @@
     </div>
     <!-- Left -->
     <!-- Right -->
-    <div class="right col-12 col-sm-10 py-3">
+    <div class="right col-12 col-sm-10 p-3">
         <div class="d-flex flex-column flex-grow-1 h-100">
             <!-- Post Details -->
             <div class="details text-center text-sm-left text-softwhite mb-2">

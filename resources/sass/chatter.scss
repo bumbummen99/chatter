@@ -33,8 +33,11 @@ section.forum {
     .posts {
         .discussion,
         .post {
-            background-color: $chatter-post-background-color;
-            border-top: 5px solid $chatter-post-border-color;
+            .left, 
+            .right {
+                background-color: $chatter-post-background-color;
+                border-top: 5px solid $chatter-post-border-color;
+            }
 
             .left {
                 .avatar {
