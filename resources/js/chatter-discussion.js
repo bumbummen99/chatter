@@ -1,4 +1,4 @@
-import 'easymde';
+import * as EasyMDE from 'easymde';
 
 document.addEventListener("DOMContentLoaded", function() { 
     /* Initialize new response editor */
