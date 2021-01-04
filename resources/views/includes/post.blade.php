@@ -31,7 +31,7 @@
             <div class="content d-flex flex-column flex-grow-1">
                 <!-- Post Content -->
                 <div class="main text-white">
-                    <div class="body text-break">
+                    <div class="body text-break" markdown="{{ $post->body }}">
                         {!! \GrahamCampbell\Markdown\Facades\Markdown::convertToHtml($post->body) !!}
                     </div>
                 </div>

@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 const textarea = document.createElement('textarea');
                 textarea.setAttribute('id', 'post-edit-' + postId);
                 
-                /* Client side XSS fix */
-                textarea.value = body.innerHTML;
+                /* Get the markdown of the post */
+                textarea.value = body.getAttribute('markdown');
 
                 /* Add textarea to the post */
                 main.insertBefore(textarea, main.firstChild);
