@@ -31,7 +31,7 @@
 	    "psr-4": {
           "SkyRaptor\\Chatter\\": "/src",
           "SkyRaptor\\Chatter\\Seeders": "/database/seeders"
-		},
+		}
 	},
     "autoload-dev": {
         "psr-4": {
