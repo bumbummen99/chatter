@@ -3,6 +3,8 @@
 namespace SkyRaptor\Chatter\Helpers;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class ChatterHelper
 {
@@ -93,5 +95,20 @@ class ChatterHelper
         }
 
         return str_ireplace($originalHeaderTags, $demotedHeaderTags, $html);
+    }
+
+    public static function cachedCategoriesMenu(Collection $rootCategories,  ?string $locale = null) : string
+    {
+        /* Get the current locale if none has been passed */
+        if (is_null($locale)) {
+            $locale = App::getLocale();
+        }
+
+        /* Return the view and cache the result forever, tag it so we can delete it when the categories get modified */
+        return Cache::tags(['chatter-categories'])->rememberForever('chatter-categories-menu-' . $locale, function () use ($rootCategories) {
+            return view('chatter::includes.categories-menu', [
+                'categories' => $rootCategories,
+            ])->render();
+        });
     }
 }

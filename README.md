@@ -21,7 +21,7 @@ Quick Note: If this is a new project, make sure to install the default user auth
 3. Publish the Vendor Assets files by running:
 
     ```
-    php artisan vendor:publish --provider="SkyRaptor\Chatter\ChatterServiceProvider"
+    php artisan vendor:publish --provider="SkyRaptor\Chatter\Providers\ChatterServiceProvider"
     ```
 
 4. Now that we have published a few new files to our application we need to reload them with the following command:

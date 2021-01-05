@@ -1,6 +1,6 @@
 <?php
 
-namespace SkyRaptor\Chatter;
+namespace SkyRaptor\Chatter\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -14,6 +14,8 @@ class ChatterServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'chatter');
+
+        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
 
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/skyraptor/chatter'),
@@ -42,9 +44,6 @@ class ChatterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/chatter'),
         ], 'chatter_lang');
-
-        // include the routes file
-        include __DIR__ . '/Routes/web.php';
     }
 
     /**

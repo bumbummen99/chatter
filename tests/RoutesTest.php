@@ -1,6 +1,8 @@
 <?php
 
-class RoutesTest extends TestCase
+namespace SkyRaptor\Chatter\Tests;
+
+class RoutesTest extends \Orchestra\Testbench\TestCase
 {
     /**
      * A basic functional test example.

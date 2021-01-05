@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Config;
+use SkyRaptor\Chatter\Events\ChatterCategorySaved;
 
 class Category extends Model
 {
@@ -22,6 +23,15 @@ class Category extends Model
      * @var bool
      */
     public $timestamps = true;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => ChatterCategorySaved::class,
+    ];
 
     /**
      * The relationships that should always be loaded.

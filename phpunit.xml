@@ -10,7 +10,8 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./vendor/skyraptor/chatter/tests</directory>
+            <directory suffix=".php">./tests/</directory>
+            <exclude>./tests/Abstracts/TestCase.php</exclude>
         </testsuite>
     </testsuites>
     <php>

@@ -28,7 +28,7 @@
 
 				<!-- Category Filter Nav -->
 				<div class="category-nav">
-					@include('chatter::includes.categories-menu', ['categories' => $categories->whereNull('parent_id')])
+					{!! \SkyRaptor\Chatter\Helpers\ChatterHelper::cachedCategoriesMenu($categories->whereNull('parent_id')) !!}
 				</div>
 			</div>
 			<!-- /Sidebar -->
