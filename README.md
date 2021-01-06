@@ -2,6 +2,9 @@
 
 <p align="center">
 <a href="https://github.com/bumbummen99/chatter/actions"><img src="https://github.com/bumbummen99/chatter/workflows/CI%20Code%20Checks/badge.svg?branch=master" alt="CI Code Checks"></a>
+<a href="https://codecov.io/gh/bumbummen99/chatter">
+  <img src="https://codecov.io/gh/bumbummen99/chatter/branch/master/graph/badge.svg?token=ofYZllAsu5"/>
+</a>
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/downloads.svg?format=flat" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/license.svg?format=flat" alt="License"></a>
