@@ -20,20 +20,24 @@ class ChatterServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
 
         $this->publishes([
-            __DIR__.'/../../config/chatter.php' => config_path('chatter.php'),
-        ]);
+            __DIR__ . '/../../config/chatter.php' => config_path('chatter.php'),
+        ], 'chatter-config');
 
         $this->publishes([
             __DIR__ . '/../../public' => public_path('vendor/skyraptor/chatter'),
         ], 'chatter-assets');
 
         $this->publishes([
-            __DIR__.'/../../resources/sass' => resource_path('sass/vendor/chatter'),
+            __DIR__ . '/../../resources/sass' => resource_path('sass/vendor/chatter'),
         ], 'chatter-resources');
 
         $this->publishes([
-            __DIR__.'/../../resources/js' => resource_path('js/vendor/chatter'),
+            __DIR__ . '/../../resources/js' => resource_path('js/vendor/chatter'),
         ], 'chatter-resources');
+
+        $this->publishes([
+            __DIR__ . '/../../resources/views' => resource_path('views/vendor/chatter'),
+        ]);
     }
 
     /**
