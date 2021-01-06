@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\App;
 
 class ChatterController extends Controller
 {

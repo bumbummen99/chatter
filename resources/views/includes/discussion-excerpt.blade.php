@@ -37,7 +37,7 @@
                 <div class="main flex-fill text-white">
                     <div class="body text-break">
                         @php
-                        $text = strip_tags(\GrahamCampbell\Markdown\Facades\Markdown::convertToHtml($discussion->post[0]->body));
+                        $text = strip_tags($discussion->post[0]->getBodyAsHtml());
                         @endphp
                         {{ substr($text, 0, 200) }}@if(strlen(strip_tags($text)) > 200){{ '...' }}@endif
                     </div>

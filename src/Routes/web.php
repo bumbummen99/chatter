@@ -34,12 +34,12 @@ Route::group([
 ], function () use ($route, $middleware, $authMiddleware) {
 
     // Home view.
-    Route::middleware($authMiddleware('home'))
+    Route::middleware($middleware('home'))
     ->get('/', [Config::get('chatter.controllers.default'), 'index'])
     ->name('home');
 
     // Single category view.
-    Route::middleware($authMiddleware('category.show'))
+    Route::middleware($middleware('category.show'))
     ->get($route('category').'/{slug}', [Config::get('chatter.controllers.default'), 'index'])
     ->name('category.show');
 
@@ -50,48 +50,22 @@ Route::group([
         'as'     => 'discussion.',
         'prefix' => $route('discussion'),
     ], function () use ($middleware, $authMiddleware) {
-
-        // All discussions view.
-        Route::middleware($authMiddleware('discussion.index'))
-        ->get('/', [Config::get('chatter.controllers.discussion'), 'index'])
-        ->name('index');
-
-        // Create discussion view.
-        Route::middleware($authMiddleware('discussion.create'))
-        ->get('create', [Config::get('chatter.controllers.discussion'), 'create'])
-        ->name('create');
-
         // Store discussion action.
         Route::middleware($authMiddleware('discussion.store'))
         ->post('/', [Config::get('chatter.controllers.discussion'), 'store'])
         ->name('store');
 
         // Single discussion view.
-        Route::middleware($authMiddleware('discussion.show'))
+        Route::middleware($middleware('discussion.show'))
         ->get('{category}/{slug}', [Config::get('chatter.controllers.discussion'), 'show'])
         ->name('showInCategory');
-
-        // Add user notification to discussion
-        Route::post('{category}/{slug}/email', [Config::get('chatter.controllers.discussion'), 'toggleEmailNotification'])
-        ->name('email');
 
         /*
          * Specific discussion routes.
          */
         Route::group([
             'prefix' => '{discussion}',
-        ], function () use ($middleware, $authMiddleware) {
-
-            // Single discussion view.
-            Route::middleware($authMiddleware('discussion.show'))
-            ->get('/', [Config::get('chatter.controllers.discussion'), 'show'])
-            ->name('show');
-
-            // Edit discussion view.
-            Route::middleware($authMiddleware('discussion.edit'))
-            ->get('edit', [Config::get('chatter.controllers.discussion'), 'edit'])
-            ->name('edit');
-            
+        ], function () use ($middleware, $authMiddleware) {            
             // Update discussion action.
             Route::middleware($authMiddleware('discussion.update'))
             ->match(['PUT', 'PATCH'], '/', [Config::get('chatter.controllers.discussion'), 'update'])
@@ -111,17 +85,6 @@ Route::group([
         'as'     => 'posts.',
         'prefix' => $route('post', 'posts'),
     ], function () use ($middleware, $authMiddleware) {
-
-        // All posts view.
-        Route::middleware($authMiddleware('post.index'))
-        ->get('/', [Config::get('chatter.controllers.post'), 'index'])
-        ->name('index');
-
-        // Create post view.
-        Route::middleware($authMiddleware('post.create'))
-        ->get('create', [Config::get('chatter.controllers.post'), 'create'])
-        ->name('create');
-
         // Store post action.
         Route::middleware($authMiddleware('post.store'))
         ->post('/', [Config::get('chatter.controllers.post'), 'store'])

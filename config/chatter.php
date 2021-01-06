@@ -4,16 +4,24 @@ return [
     /**
      * Forum Routes
      * 
-     * Here you can specify the specific routes for the different sections of
-     * your forum.
+     * Here you can specify the specific routes for your application,
+     * mainly the routes used for authentication and registration.
      */
     'routes' => [
-        'home'       => 'forums',       // Base URI prefix
+        'register'   => 'register',
+        'login'      => 'login', // Name of your login route
+    ],
+
+    /**
+     * Forum Route URLs
+     * 
+     * Here you can specify the specific route URL parts.
+     */
+    'url' => [
+        'home'       => 'forums',
         'discussion' => 'discussion',
         'category'   => 'category',
         'post'       => 'posts',
-        'register'   => 'register',
-        'login'      => 'login', // Name of your login route
     ],
 
     /**
@@ -215,21 +223,14 @@ return [
         'global'     => ['web'],
         'home'       => [],
         'discussion' => [
-            'index'   => [],
             'show'    => [],
-            'create'  => [],
             'store'   => [],
             'destroy' => [],
-            'edit'    => [],
             'update'  => [],
         ],
         'post' => [
-            'index'   => [],
-            'show'    => [],
-            'create'  => [],
             'store'   => [],
             'destroy' => [],
-            'edit'    => [],
             'update'  => [],
         ],
         'category' => [

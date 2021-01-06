@@ -95,7 +95,7 @@ And you'll be up-to-date with the latest version :)
 If you want to add additional style changes you can simply add another stylesheet at the end of your `@yield('css')` statement in the head of your master file. In order to only load this file when a user is accessing your forums you can include your stylesheet in the following `if` statement:
 
 ```
-@if(Request::is( config('chatter.routes.home') ) || Request::is( config('chatter.routes.home') . '/*' ))
+@if(Request::is( config('chatter.url.home') ) || Request::is( config('chatter.url.home') . '/*' ))
     <!-- LINK TO YOUR CUSTOM STYLESHEET -->
     <link rel="stylesheet" href="/assets/css/forums.css" />
 @endif
@@ -106,11 +106,11 @@ If you want to add additional style changes you can simply add another styleshee
 Since the forum uses your master layout file, you will need to include the necessary code in order to display an SEO friendly title for your page. The following code will need to be added to the `<head>` of your master file:
 
 ```
-@if( Request::is( config('chatter.routes.home')) )
+@if( Request::is( config('chatter.url.home')) )
     <title>Title for your forum homepage -  Website Name</title>
-@elseif( Request::is( config('chatter.routes.home') . '/' . config('chatter.routes.category') . '/*' ) && isset( $discussion ) )
+@elseif( Request::is( config('chatter.url.home') . '/' . config('chatter.url.category') . '/*' ) && isset( $discussion ) )
     <title>{{ $discussion->category->name }} - Website Name</title>
-@elseif( Request::is( config('chatter.routes.home') . '/*' ) && isset($discussion->title))
+@elseif( Request::is( config('chatter.url.home') . '/*' ) && isset($discussion->title))
     <title>{{ $discussion->title }} - Website Name</title>
 @endif
 ```

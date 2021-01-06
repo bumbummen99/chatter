@@ -14,7 +14,12 @@ class AddSlugFieldForDiscussions extends Migration
     public function up()
     {
         Schema::table('chatter_discussion', function (Blueprint $table) {
-            $table->string('slug')->unique();
+            if (Schema::connection($this->getConnection())->getConnection()->getDriverName() === 'sqlite') {
+                $table->string('slug')->unique()->default('');
+            } else {
+                $table->string('slug')->unique();
+            }
+            
         });
     }
 

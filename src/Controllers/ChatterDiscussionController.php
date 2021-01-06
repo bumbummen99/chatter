@@ -10,36 +10,11 @@ use SkyRaptor\Chatter\Events\ChatterBeforeNewDiscussion;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ChatterDiscussionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        // Return an empty array to avoid exposing user data to the public.
-        // This index function is not being used anywhere.
-        return response()->json([]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = Models::category()->all();
-
-        return view('chatter::discussion.create', compact('categories'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -113,7 +88,8 @@ class ChatterDiscussionController extends Controller
             'user_id'             => $user_id,
             'slug'                => $slug,
             'color'               => $request->color,
-            ];
+            'last_reply_at'       => Carbon::now(),
+        ];
 
         $category = Models::category()->find($request->chatter_category_id);
         if (!isset($category->slug)) {
@@ -134,23 +110,21 @@ class ChatterDiscussionController extends Controller
 
         $post = Models::post()->create($new_post);
 
+        $chatter_alert = [
+            'chatter_alert_type' => 'danger',
+            'chatter_alert'      => trans('chatter::alert.danger.reason.create_discussion'),
+        ];
+
         if ($post->id) {
             Event::dispatch(new ChatterAfterNewDiscussion($request, $discussion, $post));
 
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => trans('chatter::alert.success.reason.created_discussion'),
-                ];
-
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$slug)->with($chatter_alert);
-        } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.create_discussion'),
             ];
-
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$slug)->with($chatter_alert);
         }
+
+        return redirect(route('chatter.discussion.showInCategory', ['category' => $discussion->category->slug, 'slug' => $slug]))->with($chatter_alert);
     }
 
     private function notEnoughTimeBetweenDiscussion()
@@ -178,7 +152,7 @@ class ChatterDiscussionController extends Controller
     public function show($category, $slug = null)
     {
         if (!isset($category) || !isset($slug)) {
-            return redirect(config('chatter.routes.home'));
+            return redirect(route('chatter.home'));
         }
 
         $discussion = Models::discussion()->where('slug', '=', $slug)->first();
@@ -188,26 +162,13 @@ class ChatterDiscussionController extends Controller
 
         $discussion_category = Models::category()->find($discussion->chatter_category_id);
         if ($category != $discussion_category->slug) {
-            return redirect(config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$discussion_category->slug.'/'.$discussion->slug);
+            return redirect(route('chatter.discussion.showInCategory', ['category' => $discussion_category->category->slug, 'slug' => $discussion->slug]));
         }
         $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy(config('chatter.order_by.posts.order'), config('chatter.order_by.posts.by'))->paginate(10);
 
         $discussion->increment('views');
         
         return view('chatter::discussion', compact('discussion', 'posts'));
-    }
-
-    /**
-     * TODO
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -260,28 +221,6 @@ class ChatterDiscussionController extends Controller
         for ($nodeIdx = $nodeList->length; --$nodeIdx >= 0;) {
             $node = $nodeList->item($nodeIdx);
             $node->parentNode->removeChild($node);
-        }
-    }
-
-    public function toggleEmailNotification($category, $slug = null)
-    {
-        if (!isset($category) || !isset($slug)) {
-            return redirect(config('chatter.routes.home'));
-        }
-
-        $discussion = Models::discussion()->where('slug', '=', $slug)->first();
-
-        $user_id = Auth::user()->id;
-
-        // if it already exists, remove it
-        if ($discussion->users->contains($user_id)) {
-            $discussion->users()->detach($user_id);
-
-            return response()->json(0);
-        } else { // otherwise add it
-             $discussion->users()->attach($user_id);
-
-            return response()->json(1);
         }
     }
 }

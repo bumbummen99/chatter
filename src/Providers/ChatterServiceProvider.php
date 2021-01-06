@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class ChatterServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application services.
+     * Bootstrap any package services.
      *
      * @return void
      */
@@ -15,35 +15,25 @@ class ChatterServiceProvider extends ServiceProvider
     {
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'chatter');
 
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+
         $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
 
         $this->publishes([
-            __DIR__ . '/../../public' => public_path('vendor/skyraptor/chatter'),
-        ], 'chatter_assets');
-
-        $this->publishes([
             __DIR__.'/../../config/chatter.php' => config_path('chatter.php'),
-        ], 'chatter_config');
+        ]);
 
         $this->publishes([
-            __DIR__.'/../../database/migrations/' => database_path('migrations'),
-        ], 'chatter_migrations');
-
-        $this->publishes([
-            __DIR__.'/../../database/seeds/' => database_path('seeds'),
-        ], 'chatter_seeds');
+            __DIR__ . '/../../public' => public_path('vendor/skyraptor/chatter'),
+        ], 'chatter-assets');
 
         $this->publishes([
             __DIR__.'/../../resources/sass' => resource_path('sass/vendor/chatter'),
-        ], 'chatter_resources');
+        ], 'chatter-resources');
 
         $this->publishes([
             __DIR__.'/../../resources/js' => resource_path('js/vendor/chatter'),
-        ], 'chatter_resources');
-
-        $this->publishes([
-            __DIR__.'/../../resources/lang' => resource_path('lang/vendor/chatter'),
-        ], 'chatter_lang');
+        ], 'chatter-resources');
     }
 
     /**

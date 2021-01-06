@@ -10,10 +10,10 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.setPublicPath('./public');
+mix.setPublicPath('./public/vendor/skyraptor/chatter');
 
 mix
-.js('./resources/js/chatter-discussion.js', 'public/js')
-.js('./resources/js/chatter-home.js', 'public/js')
-.sass('./resources/sass/chatter.scss', 'public/css')
+.js('./resources/js/chatter-discussion.js', 'public/vendor/skyraptor/chatter/js')
+.js('./resources/js/chatter-home.js', 'public/vendor/skyraptor/chatter/js')
+.sass('./resources/sass/chatter.scss', 'public/vendor/skyraptor/chatter/css')
 .version();

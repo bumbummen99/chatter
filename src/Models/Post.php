@@ -5,6 +5,7 @@ namespace SkyRaptor\Chatter\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
 {
@@ -48,5 +49,14 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(Config::get('chatter.user.namespace'));
+    }
+
+    public function getBodyAsHtml() : string
+    {
+        if (config('chatter.markdown')) {
+            return Markdown::convertToHtml($this->body);
+        } else {
+            return $this->body;
+        }
     }
 }

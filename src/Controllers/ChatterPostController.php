@@ -15,28 +15,6 @@ use Illuminate\Support\Facades\Validator;
 class ChatterPostController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        /*$total = 10;
-        $offset = 0;
-        if ($request->total) {
-            $total = $request->total;
-        }
-        if ($request->offset) {
-            $offset = $request->offset;
-        }
-        $posts = Models::post()->with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();*/
-
-        // This is another unused route
-        // we return an empty array to not expose user data to the public
-        return response()->json([]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -85,7 +63,12 @@ class ChatterPostController extends Controller
             $category = Models::category()->first();
         }
 
-        if ($new_post->id) {
+        $chatter_alert = [
+            'chatter_alert_type' => 'danger',
+            'chatter_alert'      => trans('chatter::alert.danger.reason.trouble'),
+        ];
+
+        if ($new_post->exists) {
             $discussion->last_reply_at = $discussion->freshTimestamp();
             $discussion->save();
             
@@ -94,17 +77,10 @@ class ChatterPostController extends Controller
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => trans('chatter::alert.success.reason.submitted_to_post'),
-                ];
-
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
-        } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.trouble'),
-                ];
-
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
+            ];
         }
+
+        return redirect(route('chatter.discussion.showInCategory', ['category' => $category->category->slug, 'slug' => $discussion->slug]))->with($chatter_alert);
     }
 
     private function notEnoughTimeBetweenPosts()
@@ -159,16 +135,16 @@ class ChatterPostController extends Controller
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => trans('chatter::alert.success.reason.updated_post'),
-                ];
+            ];
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
+            return redirect(route('chatter.discussion.showInCategory', ['category' => $category->category->slug, 'slug' => $discussion->slug]))->with($chatter_alert);
         } else {
             $chatter_alert = [
                 'chatter_alert_type' => 'danger',
                 'chatter_alert'      => trans('chatter::alert.danger.reason.update_post'),
-                ];
+            ];
 
-            return redirect('/'.config('chatter.routes.home'))->with($chatter_alert);
+            return redirect(route('chatter.home'))->with($chatter_alert);
         }
     }
 
@@ -185,7 +161,7 @@ class ChatterPostController extends Controller
         $post = Models::post()->with('discussion')->findOrFail($id);
 
         if ($request->user()->id !== (int) $post->user_id) {
-            return redirect('/'.config('chatter.routes.home'))->with([
+            return redirect(route('chatter.home'))->with([
                 'chatter_alert_type' => 'danger',
                 'chatter_alert'      => trans('chatter::alert.danger.reason.destroy_post'),
             ]);
@@ -200,7 +176,7 @@ class ChatterPostController extends Controller
                 $post->discussion()->forceDelete();
             }
 
-            return redirect('/'.config('chatter.routes.home'))->with([
+            return redirect(route('chatter.home'))->with([
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => trans('chatter::alert.success.reason.destroy_post'),
             ]);
@@ -208,7 +184,7 @@ class ChatterPostController extends Controller
 
         $post->delete();
 
-        $url = '/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$post->discussion->category->slug.'/'.$post->discussion->slug;
+        $url = route('chatter.discussion.showInCategory', ['category' => $post->discussion->category->slug, 'slug' => $post->discussion->slug]);
 
         return redirect($url)->with([
             'chatter_alert_type' => 'success',
