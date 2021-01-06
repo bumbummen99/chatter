@@ -53,7 +53,7 @@ class Post extends Model
 
     public function getBodyAsHtml() : string
     {
-        if (config('chatter.markdown')) {
+        if ($this->markdown) {
             return Markdown::convertToHtml($this->body);
         } else {
             return $this->body;
