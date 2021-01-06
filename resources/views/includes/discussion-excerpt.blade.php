@@ -34,7 +34,7 @@
             <!-- Content -->
             <div class="content d-flex flex-row flex-grow-1">
                 <!-- Post Content -->
-                <div class="main flex-fill text-white">
+                <div class="main flex-fill d-flex flex-row align-items-center text-white">
                     <div class="body text-break">
                         @php
                         $text = strip_tags($discussion->post[0]->getBodyAsHtml());
