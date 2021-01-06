@@ -16,8 +16,10 @@ class CreateChatterUserDiscussionPivotTable extends Migration
         Schema::create('chatter_user_discussion', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->integer('discussion_id')->unsigned()->index();
             $table->foreign('discussion_id')->references('id')->on('chatter_discussion')->onDelete('cascade');
+            
             $table->primary(['user_id', 'discussion_id']);
         });
     }

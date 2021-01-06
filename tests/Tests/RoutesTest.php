@@ -32,7 +32,7 @@ class RoutesTest extends TestCase
 
         foreach ($urls as $url) {
             $response = $this->call('GET', $url);
-            $this->assertEquals(200, $response->status(), $url.' did not return a 200');
+            $this->assertEquals(200, $response->status(), $url.' did not return a 200, it did return: ');
         }
     }
 }

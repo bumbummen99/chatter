@@ -32,7 +32,7 @@
                 <!-- Post Content -->
                 <div class="main text-white">
                     <div class="body text-break" markdown="{{ $post->body }}">
-                        {!! $post->body->getBodyAsHtml() !!}
+                        {!! $post->getBodyAsHtml() !!}
                     </div>
                 </div>
             </div>

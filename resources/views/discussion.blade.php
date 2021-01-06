@@ -80,7 +80,7 @@
 				@guest
 				<div id="login_or_register" class="text-white text-center">
 					<p>
-						@lang('forum.messages.auth', ['login' => route('login.steam')])
+						@lang('forum.messages.auth', ['login' => route(config('chatter.routes.login'))])
 					</p>
 				</div>
 				@endguest

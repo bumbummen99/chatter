@@ -14,9 +14,7 @@ class ChatterTableSeeder extends Seeder
      */
     public function run()
     {
-
         // CREATE THE USER
-
         if (!DB::table('users')->find(1)) {
             DB::table('users')->insert([
                 0 => [
