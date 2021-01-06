@@ -1,6 +1,7 @@
 {
     "name": "skyraptor/chatter",
     "description": "Chatter - A Laravel Forum package.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Tony Lea",

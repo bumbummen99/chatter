@@ -1,6 +1,7 @@
 <p align="center"><img width="300" src="https://raw.githubusercontent.com/bumbummen99/chatter/master/laravel-forum-logo.svg"></p>
 
 <p align="center">
+<a href="https://github.com/bumbummen99/chatter/actions"><img src="https://github.com/bumbummen99/chatter/workflows/CI%20Code%20Checks/badge.svg?branch=master" alt="CI Code Checks"></a>
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/downloads.svg?format=flat" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/skyraptor/chatter"><img src="https://poser.pugx.org/skyraptor/chatter/license.svg?format=flat" alt="License"></a>
@@ -41,19 +42,19 @@ Quick Note: If this is a new project, make sure to install the default user auth
 6. Lastly, run the seed files to seed your database with a little data:
 
     ```
-    php artisan db:seed --class=ChatterTableSeeder
+    php artisan db:seed --class=SkyRaptor\Chatter\Seeders\ChatterTableSeeder
     ```
 
 7. Inside of your master.blade.php file include a header and footer yield. Inside the head of your master or app.blade.php add the following:
 
     ```
-    @yield('css')
+    @stack('css')
     ```
 
     Then, right above the `</body>` tag of your master file add the following:
 
     ```
-    @yield('js')
+    @stack('js')
     ```
 
 Now, visit your site.com/forums and you should see your new forum in front of you!
@@ -75,9 +76,8 @@ composer update
 Next, you may want to re-publish the chatter assets, chatter config, and the chatter migrations by running the following:
 
 ```
-php artisan vendor:publish --tag=chatter_assets --force
-php artisan vendor:publish --tag=chatter_config --force
-php artisan vendor:publish --tag=chatter_migrations --force
+php artisan vendor:publish --tag=chatter-resources --force
+php artisan vendor:publish --tag=chatter-assets --force
 ```
 
 Next to make sure you have the latest database schema run:
@@ -92,14 +92,16 @@ And you'll be up-to-date with the latest version :)
 
 *CUSTOM CSS*
 
-If you want to add additional style changes you can simply add another stylesheet at the end of your `@yield('css')` statement in the head of your master file. In order to only load this file when a user is accessing your forums you can include your stylesheet in the following `if` statement:
+If you want to add additional style changes you can simply add another stylesheet at the end of your `@stack('css')` statement in the head of your master file. In order to only load this file when a user is accessing your forums you can include your stylesheet in the packages template files or wrap it in the following `if` statement:
 
 ```
-@if(Request::is( config('chatter.url.home') ) || Request::is( config('chatter.url.home') . '/*' ))
+@if(Route::is( route('chatter.*'))
     <!-- LINK TO YOUR CUSTOM STYLESHEET -->
     <link rel="stylesheet" href="/assets/css/forums.css" />
 @endif
 ```
+
+In addition to that you can also import the SCSS from the package directly into your own build.
 
 *SEO FRIENDLY PAGE TITLES*
 
@@ -140,8 +142,8 @@ For example, to register a listener for the "before new discussion" event, add t
 
 ```php
 protected $listen = [
-    'SkyRaptor\Chatter\Events\ChatterBeforeNewDiscussion' => [
-        'App\Listeners\HandleNewDiscussion',
+    \SkyRaptor\Chatter\Events\ChatterBeforeNewDiscussion::class => [
+        \App\Listeners\HandleNewDiscussion::class,
     ],
 ];
 ```
@@ -163,7 +165,3 @@ and
         // $event->post
     }
 ```
-
-### Screenshots
-
-![](https://raw.githubusercontent.com/skyraptor/chatter/master/public/images/chatter-screenshot.jpg)
