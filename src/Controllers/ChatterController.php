@@ -11,28 +11,28 @@ class ChatterController extends Controller
 {
     public function index($slug = '')
     {
-        $pagination_results = config('chatter.paginate.num_of_results');
-        
+        /* Build the basic query for all discussions, ordered and including users posts and categories */        
         $discussions = Models::discussion()->with('user')->with('post')->with('category')->orderBy(config('chatter.order_by.discussions.order'), config('chatter.order_by.discussions.by'));
+
+        /* Initialize an empty variable for the category, will be Category or NULL */
+        $category = null;
+
+        /* Check if the slug is provided i.e. we are in a specific Category */
         if (isset($slug)) {
-            $category = Models::category()->where('slug', '=', $slug)->first();
+            /* Try to find the Category by the provided */
+            $category = Models::category()->where('slug', '=', $slug)->findOrFail();
             
-            if (isset($category->id)) {
-                $current_category_id = $category->id;
-                $discussions = $discussions->where('chatter_category_id', '=', $category->id);
-            } else {
-                $current_category_id = null;
-            }
+            /* Scope the Discussion query to the Category */
+            $discussions = $discussions->where('chatter_category_id', '=', $category->id);
         }
 
-        $discussions = static::disucssionsQuery($discussions);
-        
-        $discussions = $discussions->paginate($pagination_results);
+        /* Query the Discussions */        
+        $discussions = $discussions->paginate(config('chatter.paginate.num_of_results'));
         
         return view('chatter::home', [
             'discussions' => $discussions,
             'categories' => Models::category()->get(),
-            'current_category_id' => $current_category_id,
+            'current_category_id' => $category ? $category->id : null,
         ]);
     }
     
@@ -52,10 +52,5 @@ class ChatterController extends Controller
                 'redirect' => config('chatter.routes.home')
             ])->with('flash_message', 'Please register for an account.');
         }
-    }
-
-    protected static function disucssionsQuery(Builder $query) : Builder
-    {
-        return $query;
     }
 }
