@@ -24,9 +24,13 @@ class CreateChatterDiscussionTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('color', 20)->nullable()->default('#232629');
+
             $table->boolean('sticky')->default(false);
+            $table->boolean('locked')->default(false);
+            $table->boolean('hidden')->default(false);
+
             $table->integer('views')->unsigned()->default(0);
-            $table->boolean('answered')->default(0);
+            $table->boolean('answered')->default(false);
             
             $table->timestamps();
             $table->timestamp('last_reply_at')->nullable();

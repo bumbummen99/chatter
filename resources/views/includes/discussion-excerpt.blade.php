@@ -37,14 +37,14 @@
                 <div class="main flex-fill d-flex flex-row align-items-center text-white">
                     <div class="body text-break">
                         @php
-                        $text = strip_tags($discussion->post[0]->getBodyAsHtml());
+                        $text = strip_tags($discussion->post()->getBodyAsHtml());
                         @endphp
                         {{ substr($text, 0, 200) }}@if(strlen(strip_tags($text)) > 200){{ '...' }}@endif
                     </div>
                 </div>
                 <div class="p-3 text-primary text-center">
                     <i class="fas fa-comments"></i>
-                    <div class="answer_count">{{ $discussion->postsCount[0]->total }}</div>
+                    <div class="answer_count">{{ $discussion->posts_count - 1 }}</div>
                 </div>
             </div>
             <!-- /Content -->

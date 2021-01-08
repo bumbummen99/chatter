@@ -3,7 +3,11 @@
 namespace SkyRaptor\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 
 class Discussion extends Model
@@ -42,35 +46,77 @@ class Discussion extends Model
         'last_reply_at'
     ];
 
-    public function user()
+    /**
+     * The User associated to this Discussion as it's creator.
+     */
+    public function user() : BelongsTo
     {
         return $this->belongsTo(Config::get('chatter.user.namespace'));
     }
 
-    public function category()
+    /**
+     * THe Category this Discussion is within.
+     */
+    public function category() : BelongsTo
     {
         return $this->belongsTo(Config::get('chatter.models.category', Category::class), 'chatter_category_id');
     }
 
-    public function posts()
+    /**
+     * The Posts associated to this Discussion as replies.
+     */
+    public function posts() : HasMany
     {
         return $this->hasMany(Config::get('chatter.models.post', Post::class), 'chatter_discussion_id');
     }
 
-    public function post()
+    /**
+     * The relation query for the very firt post of this Discussion, basically it's content.
+     */
+    public function post() : HasMany
     {
-        return $this->hasMany(Config::get('chatter.models.post', Post::class), 'chatter_discussion_id')->orderBy('created_at', 'ASC');
+        return $this->hasMany(Config::get('chatter.models.post', Post::class), 'chatter_discussion_id')->orderBy('created_at', 'ASC')->limit(1);
     }
 
-    public function postsCount()
+    /**
+     * The users associated to this Discussion throught their posts / replies.
+     */
+    public function users() : BelongsToMany
     {
-        return $this->posts()
-        ->selectRaw('chatter_discussion_id, count(*)-1 as total')
-        ->groupBy('chatter_discussion_id');
+        return $this->belongsToMany(Config::get('chatter.user.namespace'), Config::get('chatter.models.post', Post::class));
     }
 
-    public function users()
+    /**
+     * Helper to get the reply / post count. This will produce a query so make
+     * sure to Cache it or use the count method on your posts if you already
+     * have retrieved them.
+     */
+    public function getPostsCountAttribute() : int
     {
-        return $this->belongsToMany(Config::get('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
+        return Cache::tags(['chatter-discussions', 'chatter-discussion-' . $this->id])->forever('chatter-discussion-post-count-' . $this->id, function() {
+            return $this->posts()->count();
+        });
+    }
+
+    /**
+     * Helper method to toggle to locked state of the 
+     * Discussion. Will either toggle with the current state
+     * or set to the provided state.
+     */
+    public function toggleLock(?bool $lock = null) : void
+    {
+        $this->locked = is_null($lock) ? !$this->locked : $lock;
+        $this->save();
+    }
+
+    /**
+     * Helper method to toggle to hidden state of the 
+     * Discussion. Will either toggle with the current state
+     * or set to the provided state.
+     */
+    public function toggleHidden(?bool $hide = null) : void
+    {
+        $this->hidden = is_null($hide) ? !$this->hidden : $hide;
+        $this->save();
     }
 }

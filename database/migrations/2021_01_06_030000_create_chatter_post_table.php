@@ -23,8 +23,9 @@ class CreateChatterPostTable extends Migration
 
             $table->text('body');
 
-            $table->boolean('markdown')->default(0);
-            $table->boolean('locked')->default(0);
+            $table->boolean('markdown')->default(false);
+            $table->boolean('locked')->default(false);
+            $table->boolean('hidden')->default(false);
             
             $table->timestamps();
 

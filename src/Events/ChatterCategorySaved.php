@@ -2,8 +2,6 @@
 
 namespace SkyRaptor\Chatter\Events;
 
-use Illuminate\Http\Request;
-
 class ChatterCategorySaved
 {
     /**
@@ -11,15 +9,8 @@ class ChatterCategorySaved
      */
     public $category;
 
-    /**
-     * Constructor.
-     *
-     * @param Request $request
-     */
-    public function __construct(Request $request, $category)
+    public function __construct($category)
     {
-        $this->request = $request;
-
         $this->category = $category;
     }
 }
