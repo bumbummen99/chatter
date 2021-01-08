@@ -155,20 +155,25 @@ class ChatterDiscussionController extends Controller
             return redirect(route('chatter.home'));
         }
 
+        /* Try to find the Discussion */
         $discussion = Models::discussion()->where('slug', '=', $slug)->first();
         if (is_null($discussion)) {
             abort(404);
         }
 
-        $discussion_category = Models::category()->find($discussion->chatter_category_id);
-        if ($category != $discussion_category->slug) {
-            return redirect(route('chatter.discussion.showInCategory', ['category' => $discussion_category->category->slug, 'slug' => $discussion->slug]));
+        /* Try to get the Category */
+        $discussionCategory = $discussion->category;
+        if ($category != $discussionCategory->slug) {
+            return redirect(route('chatter.discussion.showInCategory', ['category' => $discussionCategory->category->slug, 'slug' => $discussion->slug]));
         }
-        $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy(config('chatter.order_by.posts.order'), config('chatter.order_by.posts.by'))->paginate(10);
 
+        /* Increment the discussions views */
         $discussion->increment('views');
         
-        return view('chatter::discussion', compact('discussion', 'posts'));
+        return view('chatter::discussion', [
+            'discussion' => $discussion,
+            'posts' => $discussion->posts()->orderBy(config('chatter.order_by.posts.order'), config('chatter.order_by.posts.by'))->paginate(10),
+        ]);
     }
 
     /**

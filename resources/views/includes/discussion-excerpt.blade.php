@@ -37,7 +37,7 @@
                 <div class="main flex-fill d-flex flex-row align-items-center text-white">
                     <div class="body text-break">
                         @php
-                        $text = strip_tags($discussion->post()->getBodyAsHtml());
+                        $text = strip_tags($discussion->post->first()->getBodyAsHtml());
                         @endphp
                         {{ substr($text, 0, 200) }}@if(strlen(strip_tags($text)) > 200){{ '...' }}@endif
                     </div>

@@ -75,7 +75,7 @@ class Discussion extends Model
      */
     public function post() : HasMany
     {
-        return $this->hasMany(Config::get('chatter.models.post', Post::class), 'chatter_discussion_id')->orderBy('created_at', 'ASC')->limit(1);
+        return $this->posts()->orderBy('created_at', 'ASC');
     }
 
     /**
