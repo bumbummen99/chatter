@@ -19,7 +19,7 @@ class ChatterController extends Controller
         /* Check if the slug is provided i.e. we are in a specific Category */
         if (isset($slug)) {
             /* Try to find the Category by the provided */
-            $category = Models::category()->where('slug', '=', $slug)->findOrFail();
+            $category = Models::category()->where('slug', '=', $slug)->firstOrFail();
             
             /* Scope the Discussion query to the Category */
             $discussions = $discussions->where('chatter_category_id', '=', $category->id);
