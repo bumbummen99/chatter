@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 class ChatterController extends Controller
 {
-    public function index($slug = '')
+    public function index($slug = null)
     {
         /* Build the basic query for all discussions, ordered and including users posts and categories */        
         $discussions = Models::discussion()->with('user')->with('post')->with('category')->orderBy(config('chatter.order_by.discussions.order'), config('chatter.order_by.discussions.by'));
@@ -17,9 +17,9 @@ class ChatterController extends Controller
         $category = null;
 
         /* Check if the slug is provided i.e. we are in a specific Category */
-        if (isset($slug)) {
+        if (!is_null($slug)) {
             /* Try to find the Category by the provided */
-            $category = Models::category()->where('slug', '=', $slug)->firstOrFail();
+            $category = Models::category()->where('slug', $slug)->firstOrFail();
             
             /* Scope the Discussion query to the Category */
             $discussions = $discussions->where('chatter_category_id', '=', $category->id);
