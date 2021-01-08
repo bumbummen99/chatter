@@ -2,7 +2,6 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Routing\Controller;

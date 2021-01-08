@@ -129,17 +129,9 @@ class ChatterDiscussionController extends Controller
 
     private function notEnoughTimeBetweenDiscussion()
     {
-        $user = Auth::user();
-
         $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
 
-        $last_discussion = Models::discussion()->where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
-
-        if (isset($last_discussion)) {
-            return true;
-        }
-
-        return false;
+        return !!Models::discussion()->where('user_id', '=', Auth::user()->id)->where('created_at', '>=', $past)->first();
     }
 
     /**
