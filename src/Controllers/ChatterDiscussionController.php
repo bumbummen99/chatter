@@ -2,6 +2,7 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
+use App\Http\Requests\DiscussionStoreRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Carbon\Carbon;
@@ -10,8 +11,8 @@ use SkyRaptor\Chatter\Events\ChatterBeforeNewDiscussion;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class ChatterDiscussionController extends Controller
 {
@@ -22,93 +23,43 @@ class ChatterDiscussionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DiscussionStoreRequest $request)
     {
-        $request->request->add(['body_content' => strip_tags($request->body)]);
+        /* Prevent new discussion Spam (if configured) */
+        $this->checkTimeBetweenDiscussions();
 
-        $validator = Validator::make($request->all(), [
-            'title'               => 'required|min:5|max:255',
-            'body_content'        => 'required|min:10',
-            'chatter_category_id' => 'required',
-         ],[
-			'title.required' =>  trans('chatter::alert.danger.reason.title_required'),
-			'title.min'     => [
-				'string'  => trans('chatter::alert.danger.reason.title_min'),
-			],
-			'title.max' => [
-				'string'  => trans('chatter::alert.danger.reason.title_max'),
-			],
-			'body_content.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body_content.min' => trans('chatter::alert.danger.reason.content_min'),
-			'chatter_category_id.required' => trans('chatter::alert.danger.reason.category_required'),
-		]);
-        
+        /* Dispatch the Event to inform that a new Discussion is about to be created */
+        Event::dispatch(new ChatterBeforeNewDiscussion());
 
-        Event::dispatch(new ChatterBeforeNewDiscussion($request, $validator));
+        /* Get the validated Request data */
+        $data = $request->validated();
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+        /* Generate an URL friendly slug from the Discussion's title */
+        $slug = $this->getUniqueDiscussionSlug(Arr::get($data, 'title'));
 
-        $user_id = Auth::user()->id;
-
-        if (config('chatter.security.limit_time_between_posts')) {
-            if ($this->notEnoughTimeBetweenDiscussion()) {
-                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
-                $chatter_alert = [
-                    'chatter_alert_type' => 'danger',
-                    'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
-                            'minutes' => $minutes,
-                        ]),
-                    ];
-
-                return redirect()->route('chatter.home')->with($chatter_alert)->withInput();
-            }
-        }
-
-        // *** Let's gaurantee that we always have a generic slug *** //
-        $slug = Str::slug($request->title, '-');
-
-        $discussion_exists = Models::discussion()->where('slug', '=', $slug)->withTrashed()->first();
-        $incrementer = 1;
-        $new_slug = $slug;
-        while (isset($discussion_exists->id)) {
-            $new_slug = $slug.'-'.$incrementer;
-            $discussion_exists = Models::discussion()->where('slug', '=', $new_slug)->withTrashed()->first();
-            $incrementer += 1;
-        }
-
-        if ($slug != $new_slug) {
-            $slug = $new_slug;
-        }
-
-        $new_discussion = [
-            'title'               => $request->title,
-            'chatter_category_id' => $request->chatter_category_id,
-            'user_id'             => $user_id,
-            'slug'                => $slug,
-            'color'               => $request->color,
-            'last_reply_at'       => Carbon::now(),
-        ];
-
-        $category = Models::category()->find($request->chatter_category_id);
+        /* Get the parent Category if set */
+        $category = Models::category()->find(Arr::get($data, 'chatter_category_id'));
         if (!isset($category->slug)) {
             $category = Models::category()->first();
         }
 
-        $discussion = Models::discussion()->create($new_discussion);
+        /* Create the Discussion */
+        $discussion = Models::discussion()->create([
+            'title'               => Arr::get($data, 'title'),
+            'chatter_category_id' => Arr::get($data, 'chatter_category_id'),
+            'user_id'             => Auth::user()->id,
+            'slug'                => $slug,
+            'color'               => Arr::get($data, 'color'),
+            'last_reply_at'       => Carbon::now(),
+        ]);
 
-        $new_post = [
+        /* Create the Post */
+        $post = Models::post()->create([
             'chatter_discussion_id' => $discussion->id,
-            'user_id'               => $user_id,
-            'body'                  => $request->body,
+            'user_id'               => Auth::user()->id,
+            'body'                  => Arr::get($data, 'body'),
             'markdown'              => 1,
-        ];
-
-        // add the user to automatically be notified when new posts are submitted
-        $discussion->users()->attach($user_id);
-
-        $post = Models::post()->create($new_post);
+        ]);
 
         $chatter_alert = [
             'chatter_alert_type' => 'danger',
@@ -124,14 +75,10 @@ class ChatterDiscussionController extends Controller
             ];
         }
 
-        return redirect(route('chatter.discussion.showInCategory', ['category' => $discussion->category->slug, 'slug' => $slug]))->with($chatter_alert);
-    }
-
-    private function notEnoughTimeBetweenDiscussion()
-    {
-        $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
-
-        return !!Models::discussion()->where('user_id', '=', Auth::user()->id)->where('created_at', '>=', $past)->first();
+        return redirect(route('chatter.discussion.showInCategory', [
+            'category' => $discussion->category->slug, 
+            'slug' => $slug
+        ]))->with($chatter_alert);
     }
 
     /**
@@ -219,5 +166,57 @@ class ChatterDiscussionController extends Controller
             $node = $nodeList->item($nodeIdx);
             $node->parentNode->removeChild($node);
         }
+    }
+
+    private function getUniqueDiscussionSlug(string $name) : string
+    {
+        $index = 0;
+        $unique = false;
+
+        $slug = null;
+
+        while (!$unique) {
+            /* Generate an URL friendly slug */
+            $slug = Str::slug($name, '-');
+
+            /* If we have an index increase and append it */
+            if ($index > 0) {
+                $slug .= '-' . $index;
+            }
+
+            /* Verify that the slug is unique */
+            $unique = !Models::discussion()->where('slug', '=', $slug)->withTrashed()->first();
+
+            /* Increment the Index if no unique slug has been found */
+            if (!$unique) {
+                $index++;
+            }
+        }
+
+        return $slug;
+    }
+
+    private function checkTimeBetweenDiscussions()
+    {
+        if (config('chatter.security.limit_time_between_posts')) {
+            if ($this->notEnoughTimeBetweenDiscussion()) {
+                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
+                $chatter_alert = [
+                    'chatter_alert_type' => 'danger',
+                    'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
+                        'minutes' => $minutes,
+                    ]),
+                ];
+
+                return redirect()->route('chatter.home')->with($chatter_alert)->withInput();
+            }
+        }
+    }
+
+    private function notEnoughTimeBetweenDiscussion()
+    {
+        $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
+
+        return !!Models::discussion()->where('user_id', '=', Auth::user()->id)->where('created_at', '>=', $past)->first();
     }
 }
