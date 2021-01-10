@@ -2,6 +2,7 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
+use App\Http\Requests\PostStoreRequest;
 use Carbon\Carbon;
 use SkyRaptor\Chatter\Events\ChatterAfterNewResponse;
 use SkyRaptor\Chatter\Events\ChatterBeforeNewResponse;
@@ -11,68 +12,41 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
+use SkyRaptor\Chatter\Models\Discussion;
+use SkyRaptor\Chatter\Models\Post;
 
 class ChatterPostController extends Controller
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $stripped_tags_body = ['body' => strip_tags($request->body)];
-        $validator = Validator::make($stripped_tags_body, [
-            'body' => 'required|min:10',
-        ],[
-			'body.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body.min' => trans('chatter::alert.danger.reason.content_min'),
-		]);
+    public function store(PostStoreRequest $request)
+    {       
+        /** @var Discussion */
+        $discussion = Discussion::find($request->chatter_discussion_id);
 
-        Event::dispatch(new ChatterBeforeNewResponse($request, $validator));
+        Event::dispatch(new ChatterBeforeNewResponse($discussion));
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+        /* Prevent Post spam (if configured */
+        $this->checkTimeBetweenPosts();
 
-        if (config('chatter.security.limit_time_between_posts')) {
-            if ($this->notEnoughTimeBetweenPosts()) {
-                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
-                $chatter_alert = [
-                    'chatter_alert_type' => 'danger',
-                    'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
-                                                'minutes' => $minutes,
-                                            ]),
-                    ];
-
-                return back()->with($chatter_alert)->withInput();
-            }
-        }
-
-        $request->request->add(['user_id' => Auth::user()->id]);
-        $request->request->add(['markdown' => 1]);
-
-        $new_post = Models::post()->create($request->all());
-
-        $discussion = Models::discussion()->find($request->chatter_discussion_id);
-
-        $category = Models::category()->find($discussion->chatter_category_id);
-        if (!isset($category->slug)) {
-            $category = Models::category()->first();
-        }
+        /* Create the Post associated to the Discussion */
+        $post = $discussion->posts()->create($request->validated());
 
         $chatter_alert = [
             'chatter_alert_type' => 'danger',
             'chatter_alert'      => trans('chatter::alert.danger.reason.trouble'),
         ];
 
-        if ($new_post->exists) {
+        if ($post->exists) {
+            /* Update the discussions last_reply */
             $discussion->last_reply_at = $discussion->freshTimestamp();
             $discussion->save();
             
-            Event::dispatch(new ChatterAfterNewResponse($request, $new_post));
+            /* Dispatch the Event to inform the system of the new response */
+            Event::dispatch(new ChatterAfterNewResponse($discussion, $post));
 
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
@@ -80,7 +54,10 @@ class ChatterPostController extends Controller
             ];
         }
 
-        return redirect(route('chatter.discussion.showInCategory', ['category' => $category->category->slug, 'slug' => $discussion->slug]))->with($chatter_alert);
+        return redirect(route('chatter.discussion.showInCategory', [
+            'category' => $discussion->category,
+            'slug' => $discussion->slug,
+        ]))->with($chatter_alert);
     }
 
     private function notEnoughTimeBetweenPosts()
@@ -190,5 +167,22 @@ class ChatterPostController extends Controller
             'chatter_alert_type' => 'success',
             'chatter_alert'      => trans('chatter::alert.success.reason.destroy_from_discussion'),
         ]);
+    }
+
+    private function checkTimeBetweenPosts()
+    {
+        if (config('chatter.security.limit_time_between_posts')) {
+            if ($this->notEnoughTimeBetweenPosts()) {
+                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
+                $chatter_alert = [
+                    'chatter_alert_type' => 'danger',
+                    'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
+                                                'minutes' => $minutes,
+                                            ]),
+                    ];
+
+                return back()->with($chatter_alert)->withInput();
+            }
+        }
     }
 }

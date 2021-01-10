@@ -2,28 +2,18 @@
 
 namespace SkyRaptor\Chatter\Events;
 
-use Illuminate\Http\Request;
+use SkyRaptor\Chatter\Models\Discussion;
+use SkyRaptor\Chatter\Models\Post;
 
 class ChatterAfterNewResponse
 {
-    /**
-     * @var Request
-     */
-    public $request;
+    public Discussion $discussion;
 
-    /**
-     * @var Models::post()
-     */
-    public $post;
+    public Post $post;
 
-    /**
-     * Constructor.
-     *
-     * @param Request $request
-     */
-    public function __construct(Request $request, $post)
+    public function __construct(Discussion $discussion, Post $post)
     {
-        $this->request = $request;
+        $this->discussion = $discussion;
 
         $this->post = $post;
     }

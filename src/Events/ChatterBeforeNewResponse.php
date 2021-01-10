@@ -2,30 +2,14 @@
 
 namespace SkyRaptor\Chatter\Events;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
+use SkyRaptor\Chatter\Models\Discussion;
 
 class ChatterBeforeNewResponse
 {
-    /**
-     * @var Request
-     */
-    public $request;
+    public Discussion $discussion;
 
-    /**
-     * @var Validator
-     */
-    public $validator;
-
-    /**
-     * Constructor.
-     *
-     * @param Request   $request
-     * @param Validator $validator
-     */
-    public function __construct(Request $request, Validator $validator)
+    function __construct(Discussion $discussion)
     {
-        $this->request = $request;
-        $this->validator = $validator;
+        $this->discussion = $discussion;
     }
 }

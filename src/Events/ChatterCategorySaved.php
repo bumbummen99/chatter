@@ -2,14 +2,13 @@
 
 namespace SkyRaptor\Chatter\Events;
 
+use SkyRaptor\Chatter\Models\Category;
+
 class ChatterCategorySaved
 {
-    /**
-     * @var Model::category()
-     */
-    public $category;
+    public Category $category;
 
-    public function __construct($category)
+    public function __construct(Category $category)
     {
         $this->category = $category;
     }

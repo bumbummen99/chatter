@@ -134,10 +134,11 @@ This package provides a number of events allowing you to respond to user actions
 
 | Event        | Available properties           | Description  |
 | ------------- |:-------------:| -----:|
-| `ChatterBeforeNewDiscussion`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a discussion is validated and created |
-| `ChatterAfterNewDiscussion`      | `Illuminate\Http\Request ($request)`, `Models::discussion() ($discussion)`, `Models::post() ($post)` | This event is fired *after* a discussion has been validated and created |
-| `ChatterBeforeNewResponse`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a response is validated and created |
-| `ChatterAfterNewResponse`      | `Illuminate\Http\Request ($request)`, `Models::post() ($post)` | This event is fired *after* a response is validated and created |
+| `ChatterBeforeNewDiscussion`      |  | This event is fired *before* a discussion is validated and created |
+| `ChatterAfterNewDiscussion`      | `Discussion $discussion`, `Post $post` | This event is fired *after* a discussion has been validated and created |
+| `ChatterBeforeNewResponse`      | `Discussion $discussion` | This event is fired *before* a response is validated and created |
+| `ChatterAfterNewResponse`      | `Discussion $discussion`, `Post $post` | This event is fired *after* a response is validated and created |
+| `ChatterCategorySaved`      | `Category $category` | This event is fired *after* a Category has been updated or created |
 
 #### Listening for Events
 To register your listeners for these events, follow the [Laravel documentation for registering events and listeners](https://laravel.com/docs/events#registering-events-and-listeners).

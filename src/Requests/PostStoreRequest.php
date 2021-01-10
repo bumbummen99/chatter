@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
-class DiscussionStoreRequest extends FormRequest
+class PostStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -36,9 +38,8 @@ class DiscussionStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'               => 'required|min:5|max:255',
-            'body_content'        => 'required|min:10',
-            'chatter_category_id' => 'required|integer|exists:chatter_categories,id',
+            'body_content' => 'required|min:10',
+            'chatter_discussion_id' => 'required|integer|exists:chatter_discussion,id',
         ];
     }
 
@@ -50,16 +51,24 @@ class DiscussionStoreRequest extends FormRequest
     public function messages()
     {
         return [
-			'title.required' =>  trans('chatter::alert.danger.reason.title_required'),
-			'title.min'     => [
-				'string'  => trans('chatter::alert.danger.reason.title_min'),
-			],
-			'title.max' => [
-				'string'  => trans('chatter::alert.danger.reason.title_max'),
-			],
-			'body_content.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body_content.min' => trans('chatter::alert.danger.reason.content_min'),
-			'chatter_category_id.required' => trans('chatter::alert.danger.reason.category_required'),
+			'body.required' => trans('chatter::alert.danger.reason.content_required'),
+			'body.min' => trans('chatter::alert.danger.reason.content_min'),
 		];
+    }
+
+    /**
+     * Get the validated data from the request.
+     *
+     * @return array
+     */
+    public function validated()
+    {
+        $data = $this->validator->validated();
+
+        Arr::set($data, 'user_id', Auth::user()->id);
+
+        Arr::set($data, 'markdown', true);
+
+        return $data;
     }
 }
