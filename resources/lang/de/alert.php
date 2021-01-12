@@ -9,6 +9,7 @@ return [
             'destroy_post'            => 'Antwort und '.mb_strtolower(trans('chatter::intro.titles.discussion')).' wurden erfolgreich gelöscht.',
             'destroy_from_discussion' => 'Antwort wurde erfolgreich von der '.mb_strtolower(trans('chatter::intro.titles.discussion')).' entfernt.',
             'created_discussion'      => 'Die '.mb_strtolower(trans('chatter::intro.titles.discussion')).' wurde erfolgreich erstellt.',
+            'updated_discussion'      => 'Die '.mb_strtolower(trans('chatter::intro.titles.discussion')).' wurde erfolgreich geändert.',
         ],
     ],
     'info' => [
@@ -26,6 +27,7 @@ return [
             'update_post'       => 'Die Antwort wurde nicht verändert. Modifizierst du etwa das Formular?',
             'destroy_post'      => 'Die Antwort wurde nicht gelöscht. Modifizierst du etwa das Formular?',
             'create_discussion' => 'Bei der Erstellung Ihrer '.mb_strtolower(trans('chatter::intro.titles.discussion')).' scheint ein fehler aufgetreten zu sein.',
+            'update_disucssion' => 'Die '.mb_strtolower(trans('chatter::intro.titles.discussion')).' wurde nicht bearbeitet. Modifizierst du etwa das Formular?',
         	'title_required'    => 'Bitte gib einen Titel an. ',
         	'title_min'		    => 'Der Titel muss mindestens :min zeichen lang sein.',
         	'title_max'		    => 'Der Titel darf maximal :max zeichen lang sein.',

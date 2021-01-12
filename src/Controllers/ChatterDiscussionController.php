@@ -3,6 +3,7 @@
 namespace SkyRaptor\Chatter\Controllers;
 
 use App\Http\Requests\DiscussionStoreRequest;
+use App\Http\Requests\DiscussionUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Carbon\Carbon;
@@ -13,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use SkyRaptor\Chatter\Models\Category;
+use SkyRaptor\Chatter\Models\Discussion;
 
 class ChatterDiscussionController extends Controller
 {
@@ -88,23 +91,14 @@ class ChatterDiscussionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($category, $slug = null)
+    public function show(Category $category, string $slug)
     {
-        if (!isset($category) || !isset($slug)) {
+        if (empty($slug)) {
             return redirect(route('chatter.home'));
         }
 
-        /* Try to find the Discussion */
-        $discussion = Models::discussion()->where('slug', '=', $slug)->first();
-        if (is_null($discussion)) {
-            abort(404);
-        }
-
-        /* Try to get the Category */
-        $discussionCategory = $discussion->category;
-        if ($category != $discussionCategory->slug) {
-            return redirect(route('chatter.discussion.showInCategory', ['category' => $discussionCategory->category->slug, 'slug' => $discussion->slug]));
-        }
+        /* Try to find the Discussion in the Category */
+        $discussion = $category->discussions()->where('slug', '=', $slug)->firstOrFail();
 
         /* Increment the discussions views */
         $discussion->increment('views');
@@ -124,48 +118,19 @@ class ChatterDiscussionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DiscussionUpdateRequest $request, Discussion $discussion)
     {
-        //
-    }
+        /* Update the Discussion */
+        $discussion->update($request->validated());
 
-    /**
-     * TODO
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    private function sanitizeContent($content)
-    {
-        libxml_use_internal_errors(true);
-        // create a new DomDocument object
-        $doc = new \DOMDocument();
-
-        // load the HTML into the DomDocument object (this would be your source HTML)
-        $doc->loadHTML($content);
-
-        $this->removeElementsByTagName('script', $doc);
-        $this->removeElementsByTagName('style', $doc);
-        $this->removeElementsByTagName('link', $doc);
-
-        // output cleaned html
-        return $doc->saveHtml();
-    }
-
-    private function removeElementsByTagName($tagName, $document)
-    {
-        $nodeList = $document->getElementsByTagName($tagName);
-        for ($nodeIdx = $nodeList->length; --$nodeIdx >= 0;) {
-            $node = $nodeList->item($nodeIdx);
-            $node->parentNode->removeChild($node);
-        }
+        /* Show the updated Discussio */
+        return redirect(route('chatter.discussion.showInCategory', [
+            'category' => $discussion->category->slug, 
+            'slug' => $discussion->slug
+        ]))->with([
+            'chatter_alert_type' => 'success',
+            'chatter_alert'      => trans('chatter::alert.success.reason.updated_discussion'),
+        ]);
     }
 
     private function getUniqueDiscussionSlug(string $name) : string

@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 class ChatterController extends Controller
 {
-    public function index($slug = null)
+    public function index(?string $slug = null)
     {
         /* Build the basic query for all discussions, ordered and including users posts and categories */        
         $discussions = Models::discussion()->with('user')->with('post')->with('category')->orderBy(config('chatter.order_by.discussions.order'), config('chatter.order_by.discussions.by'));

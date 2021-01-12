@@ -9,6 +9,7 @@ return [
             'destroy_post'            => 'Successfully deleted the response and '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
             'destroy_from_discussion' => 'Successfully deleted the response from the '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
             'created_discussion'      => 'Successfully created a new '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
+            'updated_discussion'      => 'Successfully updated the '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
         ],
     ],
     'info' => [
@@ -26,6 +27,7 @@ return [
             'update_post'       => 'Nah ah ah... Could not update your response. Make sure you\'re not doing anything shady.',
             'destroy_post'      => 'Nah ah ah... Could not delete the response. Make sure you\'re not doing anything shady.',
             'create_discussion' => 'Whoops :( There seems to be a problem creating your '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
+            'update_discussion' => 'Nah ah ah... Could not update the '.mb_strtolower(trans('chatter::intro.titles.discussion')).'. Make sure you\'re not doing anything shady.',
         	'title_required'    => 'Please write a title',
         	'title_min'		    => 'The title has to have at least :min characters.',
         	'title_max'		    => 'The title has to have no more than :max characters.',

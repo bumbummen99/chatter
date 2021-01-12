@@ -70,11 +70,6 @@ Route::group([
             Route::middleware($authMiddleware('discussion.update'))
             ->match(['PUT', 'PATCH'], '/', [Config::get('chatter.controllers.discussion'), 'update'])
             ->name('update');
-            
-            // Destroy discussion action.
-            Route::middleware($authMiddleware('discussion.destroy'))
-            ->delete('/', [Config::get('chatter.controllers.discussion'), 'destroy'])
-            ->name('destroy');
         });
     });
 
