@@ -57,7 +57,7 @@ class ChatterPostController extends Controller
 
         return redirect(route('chatter.discussion.showInCategory', [
             'category' => $discussion->category,
-            'slug' => $discussion->slug,
+            'discussion' => $discussion,
         ]))->with($chatter_alert);
     }
 
@@ -72,8 +72,8 @@ class ChatterPostController extends Controller
         $post->save();
 
         return redirect(route('chatter.discussion.showInCategory', [
-            'category' => $post->discussion->category->slug,
-            'slug' => $post->discussion->slug
+            'category' => $post->discussion->category,
+            'discussion' => $post->discussion
         ]))->with([
             'chatter_alert_type' => 'success',
             'chatter_alert'      => trans('chatter::alert.success.reason.updated_post'),
@@ -106,8 +106,8 @@ class ChatterPostController extends Controller
             $post->delete();
 
             return redirect(route('chatter.discussion.showInCategory', [
-                'category' => $post->discussion->category->slug, 
-                'slug' => $post->discussion->slug
+                'category' => $post->discussion->category, 
+                'discussion' => $post->discussion
             ]))->with([
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => trans('chatter::alert.success.reason.destroy_from_discussion'),

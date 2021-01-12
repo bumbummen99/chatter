@@ -20,7 +20,7 @@
         <div class="d-flex flex-column flex-grow-1 h-100">
             <!-- Post Title -->
             <div class="title d-flex flex-column flex-sm-row align-items-center mb-2">
-                <a class="d-block w-100 text-center text-sm-left" href="{{ route('chatter.discussion.showInCategory', ['category' => $discussion->category->slug, 'slug' => $discussion->slug]) }}">
+                <a class="d-block w-100 text-center text-sm-left" href="{{ route('chatter.discussion.showInCategory', ['category' => $discussion->category, 'discussion' => $discussion]) }}">
                     <h3 class="flex-grow-1 mb-0">{{ $discussion->title }}</h3>
                 </a>
                 <span class="category badge text-white p-2" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</span>

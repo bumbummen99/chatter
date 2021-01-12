@@ -79,8 +79,8 @@ class ChatterDiscussionController extends Controller
         }
 
         return redirect(route('chatter.discussion.showInCategory', [
-            'category' => $discussion->category->slug, 
-            'slug' => $slug
+            'category' => $discussion->category, 
+            'discussion' => $discussion
         ]))->with($chatter_alert);
     }
 
@@ -93,10 +93,6 @@ class ChatterDiscussionController extends Controller
      */
     public function show(Category $category, string $slug)
     {
-        if (empty($slug)) {
-            return redirect(route('chatter.home'));
-        }
-
         /* Try to find the Discussion in the Category */
         $discussion = $category->discussions()->where('slug', '=', $slug)->firstOrFail();
 
@@ -125,8 +121,8 @@ class ChatterDiscussionController extends Controller
 
         /* Show the updated Discussio */
         return redirect(route('chatter.discussion.showInCategory', [
-            'category' => $discussion->category->slug, 
-            'slug' => $discussion->slug
+            'category' => $discussion->category, 
+            'discussion' => $discussion
         ]))->with([
             'chatter_alert_type' => 'success',
             'chatter_alert'      => trans('chatter::alert.success.reason.updated_discussion'),

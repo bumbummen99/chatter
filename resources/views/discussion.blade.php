@@ -7,12 +7,12 @@
 			<div class="col-12 d-none d-md-flex flex-column flex-md-row align-items-center pt-3 pb-3">
 				<a class="btn btn-secondary p-2 rounded-circle mr-3 lh-normal" href="{{ route('chatter.home') }}"><i class="fas fa-chevron-left fa-fw"></i></a>
 				<h1 class="mb-0 flex-grow-1 text-primary">{{ $discussion->title }}</h1>
-				<span class="text-softwhite"> @lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="{{ route('chatter.category.show', ['slug' => $discussion->category->slug]) }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
+				<span class="text-softwhite"> @lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="{{ route('chatter.category.show', ['category' => $discussion->category->slug]) }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
 			</div>
 			<div class="col-12 d-flex d-md-none flex-column flex-md-row align-items-center pt-3 pb-3">
 				<div class="d-flex d-flex-row align-items-center">
 					<a class="btn btn-secondary p-2 rounded-circle mr-3 lh-normal" href="{{ route('chatter.home') }}"><i class="fas fa-chevron-left fa-fw"></i></a>
-					<span class="text-softwhite"> @lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="{{ route('chatter.category.show', ['slug' => $discussion->category->slug]) }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
+					<span class="text-softwhite"> @lang('chatter::messages.discussion.head_details')<a class="badge p-2 text-white ml-2" href="{{ route('chatter.category.show', ['category' => $discussion->category->slug]) }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
 				</div>
 				<h1 class="mb-0 flex-grow-1 text-primary">{{ $discussion->title }}</h1>
 			</div>

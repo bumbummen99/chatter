@@ -26,8 +26,8 @@ class RoutesTest extends TestCase
     {
         $urls = [
             route('chatter.home'),
-            route('chatter.discussion.showInCategory', ['category' => 'general', 'slug' => 'welcome-to-the-chatter-laravel-forum-package']),
-            route('chatter.category.show', ['slug' => 'introductions']),
+            route('chatter.discussion.showInCategory', ['category' => 'general', 'discussion' => 'welcome-to-the-chatter-laravel-forum-package']),
+            route('chatter.category.show', ['category' => 'introductions']),
         ];
 
         foreach ($urls as $url) {

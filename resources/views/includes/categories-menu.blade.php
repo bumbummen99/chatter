@@ -1,7 +1,7 @@
 <ul class="nav nav-pills nav-stacked">
     @foreach ($categories as $category)
         <li>
-            <a href="{{ route('chatter.category.show', ['slug' => $category->slug]) }}">
+            <a href="{{ route('chatter.category.show', ['category' => $category->slug]) }}">
                 <div class="chatter-box" style="background-color: {{ $category['color'] }}"></div>
                 {{ $category->name }}
             </a>

@@ -40,7 +40,7 @@ Route::group([
 
     // Single category view.
     Route::middleware($middleware('category.show'))
-    ->get($route('category').'/{slug}', [Config::get('chatter.controllers.default'), 'index'])
+    ->get($route('category').'/{category:slug}', [Config::get('chatter.controllers.default'), 'index'])
     ->name('category.show');
 
     /*
@@ -57,7 +57,7 @@ Route::group([
 
         // Single discussion view.
         Route::middleware($middleware('discussion.show'))
-        ->get('{category}/{slug}', [Config::get('chatter.controllers.discussion'), 'show'])
+        ->get('{category:slug}/{discussion:slug}', [Config::get('chatter.controllers.discussion'), 'show'])
         ->name('showInCategory');
 
         /*
