@@ -118,7 +118,6 @@ class ChatterPostController extends Controller
     private function checkTimeBetweenPosts()
     {
         if (config('chatter.security.limit_time_between_posts')) {
-
             $user = Auth::user();
 
             $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
