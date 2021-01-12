@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use SkyRaptor\Chatter\Events\ChatterAfterNewDiscussion;
 use SkyRaptor\Chatter\Events\ChatterBeforeNewDiscussion;
 use SkyRaptor\Chatter\Models\Models;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
