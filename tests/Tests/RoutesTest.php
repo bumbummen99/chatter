@@ -15,6 +15,7 @@ class RoutesTest extends TestCase
     {
         $urls = [
             route('chatter.home'),
+            route('chatter.home') . '.atom',
             route('chatter.discussion.showInCategory', ['category' => 'general', 'discussion' => 'welcome-to-the-chatter-laravel-forum-package']),
             route('chatter.category.show', ['category' => 'introductions']),
         ];
