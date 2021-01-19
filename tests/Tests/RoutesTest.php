@@ -11,18 +11,7 @@ class RoutesTest extends TestCase
      *
      * @return void
      */
-    public function test_it_can_view_forum()
-    {        
-        /* Test that we can see the forum frontend */
-        $this->get(route('chatter.home'))->assertSee('New Discussion');
-    }
-
-    /**
-     * A basic functional test example.
-     *
-     * @return void
-     */
-    public function testForumRoutes()
+    public function test_seeded_routes_work()
     {
         $urls = [
             route('chatter.home'),
