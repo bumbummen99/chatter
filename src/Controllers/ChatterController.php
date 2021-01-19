@@ -2,6 +2,7 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use SkyRaptor\Chatter\Models\Models;
 use Illuminate\Routing\Controller;
@@ -25,6 +26,9 @@ class ChatterController extends Controller
             $discussions = $discussions->where('chatter_category_id', '=', $category->id);
         }
 
+        /* Allow 3rd party code to hook in */
+        $discussions = $this->disucssionsQuery($discussions);
+
         /* Query the Discussions */        
         $discussions = $discussions->paginate(config('chatter.paginate.num_of_results'));
         
@@ -33,6 +37,11 @@ class ChatterController extends Controller
             'categories' => Models::category()->get(),
             'current_category_id' => $category ? $category->id : null,
         ]);
+    }
+
+    protected static function disucssionsQuery(Builder $query) : Builder
+    {
+        return $query;
     }
     
     public function login()
