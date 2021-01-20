@@ -2,8 +2,8 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
-use App\Http\Requests\DiscussionStoreRequest;
-use App\Http\Requests\DiscussionUpdateRequest;
+use SkyRaptor\Chatter\Requests\DiscussionStoreRequest;
+use SkyRaptor\Chatter\Requests\DiscussionUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Carbon\Carbon;
@@ -90,11 +90,8 @@ class ChatterDiscussionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category, string $slug)
+    public function show(Category $category, Discussion $discussion)
     {
-        /* Try to find the Discussion in the Category */
-        $discussion = $category->discussions()->where('slug', '=', $slug)->firstOrFail();
-
         /* Increment the discussions views */
         $discussion->increment('views');
         

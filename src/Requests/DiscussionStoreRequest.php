@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace SkyRaptor\Chatter\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

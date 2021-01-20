@@ -2,9 +2,9 @@
 
 namespace SkyRaptor\Chatter\Controllers;
 
-use App\Http\Requests\PostDestroyRequest;
-use App\Http\Requests\PostStoreRequest;
-use App\Http\Requests\PostUpdateRequest;
+use SkyRaptor\Chatter\Requests\PostDestroyRequest;
+use SkyRaptor\Chatter\Requests\PostStoreRequest;
+use SkyRaptor\Chatter\Requests\PostUpdateRequest;
 use Carbon\Carbon;
 use SkyRaptor\Chatter\Events\ChatterAfterNewResponse;
 use SkyRaptor\Chatter\Events\ChatterBeforeNewResponse;
