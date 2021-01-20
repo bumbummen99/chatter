@@ -93,7 +93,7 @@ class Discussion extends Model
      */
     public function getPostsCountAttribute() : int
     {
-        return Cache::tags(['chatter-discussions', 'chatter-discussion-' . $this->id])->forever('chatter-discussion-post-count-' . $this->id, function() {
+        return Cache::tags(['chatter-discussions', 'chatter-discussion-' . $this->id])->rememberForever('chatter-discussion-post-count-' . $this->id, function() {
             return $this->posts()->count();
         });
     }
